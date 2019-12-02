@@ -1,0 +1,99 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">分类管理</div>
+  <div class="page-body">
+    <div class="widget">
+      <header class="head clearfix">
+        <a href="{:url('admin/downcate/add')}" class="btn fl">添加分类</a>
+      </header>
+       <table class="table">
+          <thead>
+            <tr>
+             <td>标题</td>
+             <td>ID</td>
+             <td>文章数</td>
+             <td>排序</td>
+             <td>操作</td>
+            </tr>
+          </thead>
+          <tbody>
+          {volist name="downcate" id="vo"}
+           <tr>
+             <td>
+              <a href="{:url('admin/downcate/edit', ['id' => $vo.id])}">{$vo.title}</a>
+            </td>
+            <td>{$vo.id}</td>
+            <td>{$vo.count}</td>
+             <td><input class="sort" type="text" name="sort" size="1" value="{$vo.sort}" dataid="{$vo.id}"></td>
+             <td>
+              <a target="_blank" href="{:url('index/down/lst', ['id' => $vo.id])}">浏览</a>
+              <a href="{:url('admin/downcate/edit', ['id' => $vo.id])}">编辑</a>
+              <button class="del delete-btn" value="{$vo.id}">删除</button>
+             </td>
+           </tr>
+           {/volist}
+           </tbody>
+
+       </table>
+    </div>
+  </div>
+</main>
+<script>
+$(function () {
+
+//获取子分类
+  var plusIcon = '+';
+  var minusIcon = '&ndash;';
+  var openerHTML = '<div class="open">'+plusIcon+'</div>';
+  $(this).find('ul.table-ul>li').has('ul.child>li').prepend(openerHTML);
+  $(this).find('.open').click(function() {
+    if($(this).parent().hasClass('opened')) {
+       $(this).html(plusIcon).parent().removeClass('opened').find('.child').slideUp(200);
+      }else{
+        $(this).html(minusIcon).parent().addClass('opened').find('.child').slideDown(200);
+      }
+  });
+
+  //排序
+  $('[name=sort]').change(function () {
+    var sort = $(this).val();
+    var id = $(this).attr('dataid');
+    $.ajax({
+      url:"{:url('admin/downcate/sort')}",
+      type:'post',
+      data:{id:id, sort:sort},
+      dataType:'json',
+      success:function (data) {
+        if (data.code == 1) {
+             location.href = location.href;
+        }else{
+             $('#message').html(data.msg);
+        }
+      }
+    });//endajax
+  });
+
+//删除
+ $('.delete-btn').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $(this).parent().parent().remove();
+    var id = $(this).val();
+    $.ajax({
+       url:"{:url('admin/downcate/del')}",
+       type:'post',
+       dataType:'json',
+       success:function (data) {
+           if (data.code == 1) {
+             $('#message').html(data.msg);
+           }else {
+             $('#message').html(data.msg);
+           }
+       }
+   });
+  });
+
+})
+</script>
+{include file="public/_foot" /}

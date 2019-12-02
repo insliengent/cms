@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/static/moblie/css/style.css">
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1167221_6ty6ybupngl.css">
+<script src="/static/moblie/js/jquery.min.js"></script>
+<script src="/static/moblie/js/main.js"></script>
+</head>
+<body>
+<?php
+$ua = isset($_GET['ua'])?$_GET['ua']:null;
+if ($ua == 'app') {
+ $sty = "display: none";
+ $urlAddto ="?ua=app";
+}else{
+  $sty ="";
+  $urlAddto="";
+}
+?>
+<header class="header" style="<?php echo $sty?>">
+<div class="container">
+   <a href="{:url('index/index/index')}" class="site-logo"><img class="logo" src="/static/admin/img/logo.png" alt=""></a>
+    <div class="fr">
+      <a href="{:url('index/user/home')}"><i class="icon i-dian"></i></a>
+    </div>
+</div>
+</header>

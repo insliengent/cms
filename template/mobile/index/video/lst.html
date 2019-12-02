@@ -1,0 +1,24 @@
+{include file="public/header" /}
+<div class="container">
+    {volist name="Videolst" id="vo"}
+    <article class="videolst">
+      <a class="clearfix" href="{:url('index/Video/art', ['id' => $vo.id])}">
+        <div class="img" style="background-image: url({$vo.img});">
+          <div class="length">{$vo.length}</div>
+        </div>
+        <div class="con">
+        <h2>{$vo.title}</h2>
+        <div class="mate">
+          <span>{$vo.love}喜欢</span>
+          <span>{$vo.views}观看</span>
+          <span>{$vo.create_time|date='m-d'}</span>
+        </div>
+        <p>{$vo.desc}</p>
+      </div>
+      </a>
+
+    </article>
+    {/volist}
+    {$Videolst|raw}
+</div>
+{include file="public/footer" /}

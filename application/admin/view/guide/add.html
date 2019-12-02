@@ -1,0 +1,63 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<script src="/static/ueditor/ueditor.config.js"></script>
+<script src="/static/ueditor/ueditor.all.min.js"></script>
+<main class="main">
+  <div class="breadcrumbs">添加文章</div>
+  <div class="page-body">
+    <div class="widget">
+      <form  enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="title">名称</label>
+          <input type="text" name="title" id="title"  />
+        </div>
+        <div class="form-group clearfix">
+        <label for="pid">父级页面</label>
+          <div class="w80">
+            <link rel="stylesheet" href="/static/admin/style/select2.min.css">
+            <script src="/static/admin/js/select2.min.js"></script>
+            <div class="select-box">
+              <select class="booklst js-example-responsive" name="pid" id="pid" style="width: 100%">
+                <option></option>
+                {volist name="navTree" id="vo"}
+                <option value="{$vo.id}">{if condition="$vo['level'] neq 0"}&nbsp;&nbsp;|{/if}<?php echo str_repeat('-',$vo['level'] * 2) ?>{$vo.title}</option>
+                {/volist}
+              </select>
+            </div>
+            <script>
+              $('.booklst').select2({
+                placeholder: "选择分类",
+                width: 'resolve'
+              });
+            </script>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="seo_title">seo_title</label>
+          <input type="text" name="seo_title" id="seo_title" />
+        </div>
+        <div class="form-group">
+          <label for="desc">描述</label>
+          <textarea type="text" name="desc" id="desc" value="" /></textarea>
+        </div>
+        <div class="form-editbox form-group">
+          <textarea id="content" name="content"></textarea>
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary" id="btn">添加</button>
+        </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</main>
+<script type="text/javascript">
+
+$(function () {
+  UE.getEditor('content',{
+    initialFrameHeight: 500,   //初始化高度
+  });
+});
+</script>
+{include file="public/_foot" /}

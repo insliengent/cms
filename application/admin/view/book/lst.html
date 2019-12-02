@@ -1,0 +1,40 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">课程分类管理</div>
+  <div class="page-body">
+    <div class="widget">
+    <header class="head clearfix">
+      <a href="{:url('admin/book/add')}" class="btn fl">添加书籍</a>
+
+      <form class="serachform" id="serach" action="" method="post">
+          <input type="text" placeholder="请输入关键词" id="s" name="s">
+          <button type="submit" id="serach-submit">搜索</button>
+      </form>
+
+    </header>
+      <div class="book">
+      <ul>
+      {volist name="books" id="vo"}
+      <li>
+      <div class="card">
+        <a href="{:url('admin/book/chapterlst', ['id' => $vo.id])}" class="img">
+          <img src="{$vo.img}" alt="">
+        </a>
+        <div class="con">
+          <h2><a href="{:url('admin/book/chapterlst', ['id' => $vo.id])}">{$vo.title}</a></h2>
+          <a href="{:url('admin/book/edit', ['id' => $vo.id])}">编辑书籍</a>
+          <a href="{:url('admin/book/chapterlst', ['id' => $vo.id])}">编辑章节</a>
+        </div>
+      </div>
+    </li>
+    {/volist}
+    </ul>
+    {$books|raw}
+
+
+</div>
+    </div>
+  </div>
+</main>
+{include file="public/_foot" /}

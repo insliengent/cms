@@ -1,0 +1,16 @@
+<link rel="stylesheet" href="/static/admin/style/select2.min.css">
+<script src="/static/admin/js/select2.min.js"></script>
+<div class="select-box">
+  <select class="booklst js-example-responsive" name="book_id" id="book_id" style="width: 100%">
+    <option></option>
+    {volist name="booktree" id="vo"}
+    <option value="{$vo.id}">{if condition="$vo['level'] neq 0"}&nbsp;&nbsp;|{/if}<?php echo str_repeat('-',$vo['level'] * 2) ?>{$vo.title}</option>
+    {/volist}
+  </select>
+</div>
+<script>
+  $('.booklst').select2({
+    placeholder: "选择分类",
+    width: 'resolve'
+  });
+</script>

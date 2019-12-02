@@ -1,0 +1,27 @@
+{include file="public/header" /}
+<div class="container pd15">
+  <div class="avatar-box">
+    <a href="javascript:;" id="upload-btn">
+      <img src="{$info.avatar}" alt="" id="change-avatar">
+      <input hidden="hidden" class="change" id="file" type="file">
+    </a>
+    <input type="text" hidden="hidden" name="uid" value="{$info.id}">
+  </div>
+ <form class="user">
+  <div class="form-group">
+    </div>
+   <div class="form-group">
+      <label for="nickname">用户昵称</label>
+      <input type="text" name="nickname" value="{$info.nickname}">
+    </div>
+    <div class="form-group">
+      <label for="email">邮箱</label>
+      <input type="text" name="email" value="{$info.email}">
+    </div>
+    <div class="form-group">
+      <label for="phone">手机</label>
+      <input type="text" name="phone" value="{$info.phone}">
+    </div>
+ </form>
+</div>
+{include file="public/footer" /}

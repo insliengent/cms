@@ -1,0 +1,23 @@
+{include file="public/header" /}
+<div class="container mtb8">
+  <main class="main">
+  <div class="home-book">
+    <ul>
+    {volist name="books" id="vo"}
+    <li>
+      <a href="{:url('index/point/lst', ['id' => $vo.id])}" class="clearfix">
+        <div class="l">
+          <img src="{$vo.img}" alt="">
+        </div>
+        <div class="r">
+          <h2>{$vo.title}</h2>
+          <p>{$vo.desc}</p>
+        </div>
+      </a>
+    </li>
+    {/volist}
+    </ul>
+  </div>
+  </main>
+</div>
+{include file="public/footer" /}

@@ -1,0 +1,34 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">添加科目</div>
+  <div class="page-body">
+    <div class="widget">
+    <form class="form-box">
+      <div class="form-group clearfix">
+        <label for="pid">父级分类</label>
+        <div class="w80">
+          {include file="public/_navtree" /}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="title">章节名</label>
+        <input type="text" name="title" id="title" />
+      </div>
+      <div class="form-group">
+        <label for="seo_title">SEOtit</label>
+        <input type="text" name="seo_title" id="seo_title" />
+      </div>
+      <div class="form-group">
+        <label for="desc">desc</label>
+        <textarea type="text" name="desc" id="desc" /></textarea>
+      </div>
+
+      <div class="form-group text-center">
+        <button type="submit" class="btn" id="btn">add</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</main>
+{include file="public/_foot" /}

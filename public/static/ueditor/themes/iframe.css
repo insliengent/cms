@@ -1,0 +1,12 @@
+img{max-width: 100%!important;height: auto!important;}
+ h1{margin-bottom: 20px;text-align: center;font-size: 22px;font-weight: bold;}
+ h2{font-size: 20px;margin-bottom: 15px;  }
+ p{margin-bottom: 15px;line-height: 1.8;font-size: 14px;font-family: "SimSun"}
+ ul{margin:0 0 15px 2em;}
+ ul li{list-style-type: disc;font-family: "SimSun"}
+ ol{margin:0 0 15px 2em;}
+ ol li{list-style-type: decimal;font-family: "SimSun"}
+ table{width:100%;margin-bottom:15px;overflow-x:scroll;overflow-y:hidden;-ms-overflow-style:-ms-autohiding-scrollbar;-webkit-overflow-scrolling:touch;margin-bottom:0;font-family: "SimSun"}
+ tr,th, td{white-space: nowrap;border:1px solid #c4c4c4;padding: 5px;}
+ blockquote{border-left: 3px solid #23527c;background-color: #EFF6FE;padding: 10px 20px 3px 20px;margin:20px 0;}
+ blockquote p{text-indent: 0 !important;}

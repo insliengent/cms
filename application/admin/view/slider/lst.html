@@ -1,0 +1,85 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">列表</div>
+  <div class="page-body">
+    <div class="widget">
+      <header class="head clearfix">
+        <a href="{:url('admin/slider/add')}" class="btn fl">添加幻灯片</a>
+      </header>
+       <div class="body">
+         <table class="table">
+          <thead>
+             <tr>
+               <th>ID</th>
+               <th>排序</th>
+               <th>标题</th>
+               <th>图片</th>
+               <th class="text-center">操作</th>
+             </tr>
+          </thead>
+           <tbody>
+          {volist name="sliderlst" id="vo"}
+          <tr>
+            <td>{$vo.id}</td>
+            <td><input class="sort" type="text" name="sort" size="1" value="{$vo.sort}" dataid="{$vo.id}"></td>
+            <td><a href="{:url('admin/slider/edit', ['id' => $vo.id])}">{$vo.title}</a></td>
+            <td><img src="{$vo.img}" alt="" style="max-height: 80px;width: auto;"></td>
+            <td class="text-center">
+                <a href="{:url('admin/slider/edit', ['id' => $vo.id])}">编辑</a>
+                <button class="del delete-btn" value="{$vo.id}">删除</button>
+            </td>
+          </tr>
+           {/volist}
+           </tbody>
+         </table>
+       </div>
+    </div>
+    </div>
+  </div>
+</main>
+<script>
+$(function () {
+   //排序
+  $('[name=sort]').change(function () {
+    var sort = $(this).val();
+    var id = $(this).attr('dataid');
+    $.ajax({
+      url:"{:url('admin/slider/sort')}",
+      type:'post',
+      data:{id:id, sort:sort},
+      dataType:'json',
+      success:function (data) {
+        if (data.code == 1) {
+             location.href = location.href;
+        }else{
+             $('#message').html(data.msg);
+        }
+      }
+    });//endajax
+  });
+
+//删除
+ $('.delete-btn').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $(this).parent().parent().remove();
+    var id = $(this).val();
+    $.ajax({
+       url:"{:url('admin/slider/del')}",
+       type:'post',
+       data:{id:id},
+       dataType:'json',
+       success:function (data) {
+           if (data.code == 1) {
+             //$('#message').html(data.msg);
+           }else {
+             //$('#message').html(data.msg);
+           }
+       }
+   });
+  });
+
+})
+</script>
+{include file="public/_foot" /}

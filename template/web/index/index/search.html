@@ -1,0 +1,32 @@
+{include file="public/header" /}
+<div class="container mtb8">
+  <main class="main mr8">
+   <div class="search-cate">
+    <h2>{$keyword}相关新闻</h2>
+    <ul>
+    {volist name="newsSearchs" id="v"}
+    <li><a href="{:url('index/news/art', ['id' => $v.id])}">{$v.title}</a></li>
+    {/volist}
+    </ul>
+   </div>
+   <div class="search-cate">
+    <h2>{$keyword}相关知识点</h2>
+    <ul>
+    {volist name="pointSearchs" id="v"}
+    <li><a href="{:url('index/exam/art', ['id' => $v.id])}">{$v.title}</a></li>
+    {/volist}
+    </ul>
+   </div>
+   <div class="clearfix"></div>
+   <div class="subject-video">
+    <h2>{$keyword}相关习题</h2>
+    <ul>
+    {volist name="videoSearchs" id="v"}
+    <li><a href="{:url('index/video/art', ['id' => $v.id])}">{$v.title}</a></li>
+    {/volist}
+    </ul>
+   </div>
+  </main>
+{include file="public/sidebar" /}
+</div>
+{include file="public/footer" /}

@@ -1,0 +1,95 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">课程分类管理</div>
+  <div class="page-body">
+    <div class="widget">
+      <header class="head clearfix">
+        <a href="{:url('admin/exam/add')}" class="btn fl">添加新闻</a>
+        <form class="serachform" id="serach" action="{:url('admin/exam/search')}" method="post">
+          <input type="text" placeholder="请输入标题" id="s" name="s">
+          <button type="submit" id="serach-submit">搜索</button>
+      </form>
+      </header>
+       <div class="body">
+         <table class="table">
+          <thead>
+             <tr>
+               <th>ID</th>
+               <th>标题</th>
+               <th class="text-center">分类</th>
+                <th class="text-center">排序</th>
+                <th class="text-center">时间</th>
+               <th class="text-center">操作</th>
+             </tr>
+          </thead>
+           <tbody>
+          {volist name="searchs" id="vo"}
+          <tr>
+            <td>{$vo.id}</td>
+            <td><a href="{:url('admin/exam/edit', ['id' => $vo.id])}">{$vo.title}</a></td>
+            <td class="text-center"><a href="{:url('admin/exam/lst', ['id' => $vo.book_id])}">{$vo.cate.title}</a></td>
+            <td class="text-center">
+              <input class="sort" type="text" name="sort" size="1" value="{$vo.sort}" dataid="{$vo.id}">
+            </td>
+            <td class="text-center">{$vo.create_time|date="m-d H:i:s"}</td>
+            <td class="text-center">
+              <a href="{:url('index/exam/art', ['id' => $vo.id])}" target="_Blank">预览</a>
+              <a href="{:url('admin/exam/edit', ['id' => $vo.id])}">编辑</a>
+              <button class="del delete-btn" value="{$vo.id}">删除</button>
+            </td>
+          </tr>
+           {/volist}
+           </tbody>
+         </table>
+         {$searchs|raw}
+       </div>
+    </div>
+    </div>
+  </div>
+</main>
+<script>
+$(function () {
+  //排序
+  $('[name=sort]').change(function () {
+    var sort = $(this).val();
+    var id = $(this).attr('dataid');
+    $.ajax({
+      url:"{:url('admin/exam/sort')}",
+      type:'post',
+      data:{id:id, sort:sort},
+      dataType:'json',
+      success:function (data) {
+        if (data.code == 1) {
+             location.href = location.href;
+        }else{
+             $('#message').html(data.msg);
+        }
+      }
+    });//endajax
+  });
+
+//删除
+ $('.delete-btn').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $(this).parent().parent().remove();
+    var id = $(this).val();
+    $.ajax({
+       url:"{:url('admin/exam/del')}",
+       type:'post',
+       data:{id:id},
+       dataType:'json',
+       success:function (data) {
+           if (data.code == 1) {
+             //$('#message').html(data.msg);
+           }else {
+             //$('#message').html(data.msg);
+           }
+       }
+   });
+  });
+
+})
+</script>
+{include file="public/_foot" /}

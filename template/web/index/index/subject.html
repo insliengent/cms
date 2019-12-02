@@ -1,0 +1,50 @@
+{include file="public/header" /}
+<div class="container mtb15">
+  <div class="row">
+    {include file="public/sidebar_subject" /}
+    <main class="main">
+      <div class="bgfff">
+        <div class="bgfff">
+       <nav class="cate">
+        <ul class="clearfix">
+        {volist name="books" id="vo"}
+        <li>
+          <a href="{:url('index/index/subject', ['id' => $vo.id])}">{$vo.title}</a>
+        </li>
+        {/volist}
+        </ul>
+      </nav>
+      <div class="post-wrap">
+
+
+      <div class="subject-box">
+          <h2>{$subjectName}重要知识点</h2>
+          <ul class="clearfix">
+          {volist name="points" id="v"}
+          <li><a href="{:url('index/point/art', ['id' => $v.id])}">{$v.seo_title}</a></li>
+          {/volist}
+          </ul>
+     </div>
+     <div class="subject-box">
+      <h2>{$subjectName}重要习题</h2>
+      <ul class="clearfix">
+      {volist name="exams" id="v"}
+      <li><a href="{:url('index/exam/art', ['id' => $v.id])}">{$v.seo_title}</a></li>
+      {/volist}
+      </ul>
+     </div>
+     <div class="clearfix"></div>
+     <div class="subject-box subject-video hidden">
+      <h2>{$subjectName}视频</h2>
+      <ul class="clearfix">
+      {volist name="videos" id="v"}
+      <li><a href="{:url('index/video/art', ['id' => $v.id])}">{$v.seo_title}</a></li>
+      {/volist}
+      </ul>
+     </div>
+     </div>
+      </div>
+    </main>
+  </div>
+</div>
+{include file="public/footer" /}

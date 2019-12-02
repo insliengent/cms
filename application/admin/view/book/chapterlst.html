@@ -1,0 +1,117 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">课程分类管理</div>
+  <div class="page-body">
+    <div class="widget">
+      <header class="head clearfix">
+        <a href="{:url('admin/book/chapteradd')}" class="btn fl">添加章节</a>
+      </header>
+       <div class="body">
+         <ul class="table-ul">
+          <li class="thead">
+             <div class="td-title">标题</div>
+             <div class="td-id">ID</div>
+             <div class="td-sort">排序</div>
+             <div class="td-mata">操作</div>
+          </li>
+
+          {volist name="genTree" id="vo"}
+           <li class="clearfix">
+             <div class="row">
+               <div class="td-title">
+              <a href="{:url('admin/exam/lst', ['id' => $vo.id])}">{$vo.title}</a>
+            </div>
+             <div class="td-id">{$vo.id}</div>
+             <div class="td-sort"><input class="sort" type="text" name="sort" size="1" value="{$vo.sort}" dataid="{$vo.id}"></div>
+             <div class="td-mata">
+              <a href="{:url('admin/book/chapteredit', ['id' => $vo.id])}">编辑</a>
+              <button class="del delete-btn" value="{$vo.id}">删除</button>
+             </div>
+             </div>
+             {if !empty($vo['child'])}
+             <ul class="child">
+               {volist name="vo['child']" id="child"}
+               <li>
+                <div class="row">
+                 <div class="td-title">
+                  <a href="{:url('admin/exam/lst', ['id' => $child.id])}">{$child.title}</a>
+                </div>
+                 <div class="td-id">{$child.id}</div>
+                 <div class="td-sort"><input class="sort" type="text" name="sort" size="1" value="{$child.sort}" dataid="{$child.id}"></div>
+                 <div class="td-mata">
+                  <a href="{:url('admin/book/chapteredit', ['id' => $child.id])}">编辑</a>
+                  <button class="del delete-btn" value="{$child.id}">删除</button>
+                 </div>
+                </div>
+               </li>
+               {/volist}
+             </ul>
+             {/if}
+           </li>
+           {/volist}
+         </ul>
+       </div>
+    </div>
+    </div>
+  </div>
+</main>
+<script>
+$(function () {
+
+//获取子分类
+  var plusIcon = '+';
+  var minusIcon = '&ndash;';
+  var openerHTML = '<div class="open">'+plusIcon+'</div>';
+  $(this).find('ul.table-ul>li').has('ul.child').prepend(openerHTML);
+  $(this).find('.open').click(function() {
+    if($(this).parent().hasClass('opened')) {
+       $(this).html(plusIcon).parent().removeClass('opened').find('.child').slideUp(200);
+      }else{
+        $(this).html(minusIcon).parent().addClass('opened').find('.child').slideDown(200);
+      }
+  });
+
+  //排序
+  $('[name=sort]').change(function () {
+    var sort = $(this).val();
+    var id = $(this).attr('dataid');
+    $.ajax({
+      url:"{:url('admin/book/sort')}",
+      type:'post',
+      data:{id:id, sort:sort},
+      dataType:'json',
+      success:function (data) {
+        if (data.code == 1) {
+             //location.href = location.href;
+        }else{
+             $('#message').html(data.msg);
+        }
+      }
+    });//endajax
+  });
+
+//删除
+ $('.delete-btn').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $(this).parent().parent().remove();
+    var id = $(this).val();
+    $.ajax({
+       url:"{:url('admin/book/del')}",
+       type:'post',
+       data:{id:id},
+       dataType:'json',
+       success:function (data) {
+           if (data.code == 1) {
+             $('#message').html(data.msg);
+           }else {
+             $('#message').html(data.msg);
+           }
+       }
+   });
+  });
+
+})
+</script>
+{include file="public/_foot" /}

@@ -1,0 +1,17 @@
+{include file="public/header" /}
+<section class="container">
+    {volist name="downlst" id="vo"}
+      <a href="{$vo.down_link}" class="art-down">
+      <div class="left">
+        <i class="icon i-{$vo.type}"></i>
+      </div>
+      <div class="right">
+        <h2>{$vo.title}</h2>
+        <p class="views">{$vo.views}人下载</p>
+      </div>
+      </a>
+    {/volist}
+    {$downlst|raw}
+  <a href="https://d.gaodun.com/f/qC9OV6?x_field_1=app" class="art-down-btn">打包全部发送到邮箱</a>
+</section>
+{include file="public/footer" /}

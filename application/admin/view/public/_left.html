@@ -1,0 +1,87 @@
+<aside class="sidebar clearfix" id="aside">
+  <ul class="sidebar-nav clearfix">
+    <li><a href="{:url('admin/home/index')}"><i class="icon i-dashboard"></i>仪表盘</a></li>
+    <li class="{eq name='$Request.controller' value='Slider'}on{/eq}">
+      <a href="javascript:;"><i class="icon i-banner"></i> 幻灯片</a>
+      <ul class="sub-menu">
+        <li><a href="{:url('admin/slider/lst')}">列表</a></li>
+        <li><a href="{:url('admin/slider/add')}">添加</a></li>
+      </ul>
+    </li>
+    <li class="{eq name='$Request.controller' value='News'}on{/eq}{eq name='$Request.controller' value='Newscate'}on{/eq}">
+      <a href="javascript:;"><i class="icon i-news"></i>新闻</a>
+      <ul class="sub-menu">
+        <li><a href="{:url('admin/news/lst')}">所有</a></li>
+        <li><a href="{:url('admin/news/add')}">添加</a></li>
+        <li><a href="{:url('admin/newscate/lst')}">分类</a></li>
+      </ul>
+    </li>
+
+    <li class="{eq name='$Request.controller' value='Exam'}on{/eq}">
+      <a href="javascript:;"><i class="icon i-codepen"></i>题库</a>
+      <ul class="sub-menu">
+        <li><a href="{:url('admin/exam/lst')}">所有试题</a></li>
+        <li><a href="{:url('admin/exam/add')}">添加试题</a></li>
+        <li><a href="{:url('admin/exam/import')}">表格导入</a></li>
+      </ul>
+    </li>
+    <li class="{eq name='$Request.controller' value='Point'}on{/eq}">
+      <a href="javascript:;"><i class="icon i-ziliao"></i>知识点</a>
+      <ul class="sub-menu">
+        <li><a href="{:url('admin/point/lst')}">知识点列表</a></li>
+        <li><a href="{:url('admin/point/add')}">添加知识点</a></li>
+      </ul>
+    </li>
+    <li class="{eq name='$Request.controller' value='Video'}on{/eq}">
+      <a href="javascript:;"><i class="icon i-video"></i>视频</a>
+      <ul class="sub-menu">
+        <li><a href="{:url('admin/video/lst')}">所有视频</a></li>
+        <li><a href="{:url('admin/video/add')}">添加</a></li>
+      </ul>
+    </li>
+
+    <li class="{eq name='$Request.controller' value='Tax'}on{/eq}">
+      <a href="javascript:;"><i class="icon i-region"></i>税务局</a>
+      <ul class="sub-menu">
+        <li><a href="{:url('admin/tax/lst')}">列表</a></li>
+        <li><a href="{:url('admin/tax/add')}">添加</a></li>
+        <li><a href="{:url('admin/taxcate/lst')}">分类库</a></li>
+      </ul>
+    </li>
+    <li class="{eq name='$Request.controller' value='Book'}on{/eq}">
+      <a href="javascript:;"><i class="icon i-ziliao1"></i>科目</a>
+      <ul class="sub-menu">
+        <li><a href="{:url('admin/book/lst')}">科目列表</a></li>
+        <li><a href="{:url('admin/book/chapteradd')}">添加章节</a></li>
+      </ul>
+    </li>
+    <li class="{eq name='$Request.controller' value='Down'}on{/eq} {eq name='$Request.controller' value='Downcate'}on{/eq}">
+      <a href="javascript:;"><i class="icon i-down"></i>资料下载</a>
+      <ul class="sub-menu">
+        <li><a href="{:url('admin/down/lst')}">所有</a></li>
+        <li><a href="{:url('admin/downcate/lst')}">分类</a></li>
+        <li><a href="{:url('admin/down/add')}">添加</a></li>
+      </ul>
+    </li>
+    <li class="{eq name='$Request.controller' value='Guide'}on{/eq}">
+      <a href="javascript:;"><i class="icon i-zuzhijiagou"></i>报考指南</a>
+      <ul class="sub-menu">
+        <li><a href="{:url('admin/guide/lst')}">所有</a></li>
+        <li><a href="{:url('admin/guide/add')}">添加</a></li>
+      </ul>
+    </li>
+
+    <li>
+      <a href="{:url('admin/comment/lst')}"><i class="icon i-comment"></i>评论列表</a>
+    </li>
+
+    <li class="{eq name='$Request.controller' value='User'}on{/eq}">
+      <a href="javascript:;"><i class="icon i-banner"></i>用户管理</a>
+      <ul class="sub-menu">
+        <li><a href="{:url('admin/user/lst')}">用户列表</a></li>
+        <li><a href="{:url('admin/score/score')}">积分管理</a></li>
+      </ul>
+    </li>
+    <li><a href="{:url('admin/system/webset')}">系统设置</a></li>
+  </ul>
+</aside>

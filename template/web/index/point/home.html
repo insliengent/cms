@@ -1,0 +1,30 @@
+{include file="public/header" /}
+<div class="container mtb15">
+  <div class="row">
+    <aside class="sidebar">
+      {include file="/public/widget_nav" /}
+    </aside>
+    <main class="main ">
+      <div class="bgfff clearfix">
+      <div class="book">
+          <ul>
+          {volist name="books" id="vo"}
+          <li>
+            <a href="{:url('index/point/tree', ['id' => $vo.id])}" class="clearfix">
+              <div class="l">
+                <img src="{$vo.img}" alt="">
+              </div>
+              <div class="r">
+                <h2>{$vo.title}</h2>
+                <p>{$vo.desc}</p>
+              </div>
+            </a>
+          </li>
+          {/volist}
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+{include file="public/footer" /}

@@ -1,0 +1,54 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">
+    <ul>
+      <li><a href="{:url('admin/system/index')}">系统设置</a></li>
+      <li><a href="{:url('admin/system/webset')}">网站SEO</a></li>
+    </ul>
+  </div>
+  <div class="page-body">
+  <div class="widget">
+    <form class="form-box">
+      <div class="form-group">
+        <label for="webtit">网站标题</label>
+        <input type="text" name="webtit" id="webtit"  />
+      </div>
+      <div class="form-group">
+        <label for="webdesc">网站描述</label>
+        <input type="text" name="webdesc" id="webdesc"  />
+      </div>
+      <div class="form-group">
+        <label for="webkws">关键词</label>
+        <input type="text" name="webkws" id="webkws"  />
+      </div>
+      <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary" id="btn">更新</button>
+      </div>
+    </form>
+  </div>
+  </div>
+</main>
+<script>
+$(function () {
+  $('#btn').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $.ajax({
+      url:"{:url('admin/system/set')}",
+      type:'post',
+      data:$('form').serialize(),
+      dataType:'json',
+      success : function (data) {
+         if (data.code == 0) {
+            $('#btn').html(data.msg);
+          }else {
+            $('#btn').html(data.msg);
+          }
+      },
+    });
+  });
+  return false;
+});
+</script>
+{include file="public/_foot" /}

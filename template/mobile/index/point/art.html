@@ -1,0 +1,58 @@
+{include file="public/header" /}
+<div class="container">
+  <div class="post-head pd15">
+    <h1>{$info.title}</h1>
+  </div>
+  <div class="post-mate pd15">
+    <span>更新时间：{$info.update_time|date="Y.m.d"}</span>
+  </div>
+  <div class="post-body pd15">
+    {$info.content|raw}
+  </div>
+  <div class="post-mate">
+    {if($prv)!=null}
+    <div class="post-prv">
+      上一篇：<a  href="{:url('index/point/art', ['id' => $prv.id])}" title="{$prv.title}">{$prv.title}</a>
+    </div>
+    {/if}
+
+    {if($next)!=null}
+    <div class="post-next">
+      下一篇：
+    <a  href="{:url('index/point/art', ['id' => $next.id])}" title="{$next.title}">{$next.title}</a>
+    </div>
+    {/if}
+  </div>
+
+  <div id="comments" class="comments" name="comments">
+    <div class="comments-area">
+      <ol class="comment-list" style="font-size: 9px">
+        {volist name="comments" id="vo"}
+        <li class="comment-li clearfix" id="#comment-{$vo.id}">
+          <div class="author-avatar"><img src="{$vo.avatar}" alt=""></div>
+          <div class="comment-body">
+            <div class="author-name">{$vo.nickname}</div>
+            <div class="comment-content">{$vo.content}</div>
+            <time>{$vo.create_time|date="m-d"}</time>
+            <span class="comment-add"><i class="icon i-comment"></i></span>
+            <span class="comment-up" data-id="{$vo.id}"><em>{$vo.like}</em><i class="icon i-thumbs-o-up"></i></span>
+          </div>
+        </li>
+        {/volist}
+      </ol>
+    </div>
+    <form class="post-comment" id="comment-form">
+      <textarea type="text" name="comment" class="comment"></textarea>
+      <input type="text" hidden="hidden" name="id" value="{$info.id}">
+      <input type="text" hidden="hidden" name="controller" value="<?php echo Request::controller()?>">
+      <div class="btn" id="comment-submit">发布</div>
+    </form>
+  </div>
+
+</div>
+<footer class="post-footer">
+  <a href="javascript:" id="like" data-id="{$info.id}" class="icon i-thumbs-o-up"></a>
+  <a href="javascript:" id="love" data-id="{$info.id}" class="icon i-staro"></a>
+  <a href="#comments" id="comment-btn" class="icon i-comment"></a>
+</footer>
+{include file="public/footer" /}

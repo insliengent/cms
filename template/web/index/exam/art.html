@@ -1,0 +1,142 @@
+{include file="public/header" /}
+<section class="container mtb15">
+  <div class="row">
+    <aside class="sidebar">
+  <div class="widget widget-book">
+    <h3 class="widget-tit">{$book_name}</h3>
+    <ul>
+    {volist name="booktree" id="vo"}
+    <li>
+      <h4>{$vo.title}</h4>
+      {if !empty($vo['child'])}
+        <ul class="child">
+        {volist name="vo['child']" id="child"}
+          <li><a href="{:url('index/exam/art', ['id' => $child.id])}" alt="{$child.title} 练习题">{$child.title}</a></li>
+        {/volist}
+        </ul>
+      {/if}
+    </li>
+    {/volist}
+    </ul>
+  </div>
+  </aside>
+  <main class="main">
+    <div class="bgfff post-wrap">
+            <form>
+        <div class="post-head">
+          <h1>{$examInfo.title} 练习题</h1>
+          <p>{$examInfo.question}</p>
+        </div>
+        <div class="post-body">
+          {volist name="artBody" id="v"}
+          <div class="post-option post-box">
+            <div class="l {$optState}" v="{$v.opt}" my="0">{$v.abc}</div>
+            <div class="r">{$v.answer}</div>
+          </div>
+          {/volist}
+          <button type="submit" class="btn" id="submit">提交</button>
+          <div class="post-love">
+            {if $Think.session.code == 1}
+          <i class="icon i-star"></i><span>取消收藏 </span>
+            {else/}
+            <i class="icon i-staro"></i><span>收藏本题</span>
+            {/if}
+          </div>
+        </div>
+        <div class="post-Analysis post-box">
+        正确答案：{volist name="artBody" id="vo"}{eq name="vo['opt']" value="1"}{$vo.abc}{/eq}<if>{/volist}<br>
+        答案解析：<br>
+      {$examInfo.analysis}</div>
+    </form>
+    <footer class="page-footer">
+      <div class="nextprv">
+        {if($next)!=null}
+        <a  href="{:url('index/exam/art', ['id' => $next.id])}" title="{$next.title}">上一题</a>
+        {/if}
+        {if($prv)!=null}
+        <a  href="{:url('index/exam/art', ['id' => $prv.id])}" title="{$prv.title}">下一题</a>
+        {/if}
+      </div>
+    </footer>
+    </div>
+  </main>
+  </div>
+</section>
+
+<script>
+$(function (){
+
+
+  $(this).find('.widget-book ul li').has('ul li').children('h2').click(function(){
+    $(this).siblings('.child').slideToggle();
+    $(this).parent().toggleClass('on');
+  })
+
+
+  $('.post-option').click(function(){
+    if ($('.post-option .l').hasClass('radio')) {
+      $(this).toggleClass("on");
+      $(this).siblings('.post-option').removeClass("on");
+    }else{
+      $(this).toggleClass("on");
+    }
+
+
+
+  });
+
+
+
+   $('#submit').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $('.post-Analysis').slideDown();
+    var myarr = new Array();
+    $.each($('.post-option'), function(){
+      myarr.push($(this).find(".l").attr("my"));
+    });
+    myarr = myarr.join(",")
+    var varr = new Array();
+    $.each($('.post-option'), function(){
+      varr.push($(this).find(".l").attr("v"));
+    });
+    varr = varr.join(",");
+    var count=1;
+    if (myarr == varr ) {
+      count = 0;
+    };
+   $.ajax({
+       url:"{:url('index/exam/count')}",
+       type:'post',
+       data:{count:count,id:{$examInfo.id}},
+       dataType:'json',
+       success:function (data) {
+       }
+   });
+   });
+
+   $('.post-love').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $.ajax({
+      url:"{:url('index/love/click')}",
+      type:'post',
+      data:{artid:{$examInfo.id},modename:'Exam',uid:'{$Request.cookie.uid}',},
+      datatype:'json',
+      success:function (data) {
+        if (data.code == -1) {
+            $('.post-love span').html(data.msg);
+          }else if(data.code == 0){
+            $('.post-love i').toggleClass('i-staro').toggleClass('i-star');
+            $('.post-love span').html(data.msg);
+          }else{
+            $('.post-love i').toggleClass('i-staro').toggleClass('i-star');
+            $('.post-love span').html(data.msg);
+          }
+       }
+    });//endajax
+  })//end-post-love
+
+});
+</script>
+{include file="public/footer" /}

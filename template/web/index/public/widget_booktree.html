@@ -1,0 +1,16 @@
+<div class="widget widget-book">
+      <ul class="clearfix">
+        {volist name="navTree" id="v"}
+        <li>
+          <h4><a href="{:url('index/index/subject', ['id' => $v.id])}">{$v.title}</a></h4>
+          {if !empty($v['child'])}
+          <ul class="child">
+            {volist name="v['child']" id="child"}
+            <li><a href="{:url('index/index/subject', ['id' => $child.id])}">{$child.title}</a></li>
+            {/volist}
+          </ul>
+          {/if}
+        </li>
+        {/volist}
+      </ul>
+    </div>

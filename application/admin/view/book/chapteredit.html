@@ -1,0 +1,47 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">添加科目</div>
+  <div class="page-body">
+    <div class="widget">
+    <form class="form-box">
+      <input type="hidden" name="id" value="{$bookInfo.id}">
+      <div class="form-group clearfix">
+        <label>选择章节（必须）</label>
+        <link rel="stylesheet" href="/static/admin/style/select2.min.css">
+        <script src="/static/admin/js/select2.min.js"></script>
+        <div class="w80">
+          <div class="booklist">
+          <select class="booklst" name="pid" id="pid" style="width: 100%">
+            {volist name="booktree" id="vo"}
+            <option value="{$vo.id}">{if condition="$vo['level'] neq 0"}&nbsp;&nbsp;|{/if}<?php echo str_repeat('-',$vo['level'] * 2) ?>{$vo.title}</option>
+            {/volist}
+        </select>
+        </div>
+        <script>
+          $(".booklst").select2().select2("val", '{$bookInfo.pid}');
+        </script>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="title">章节名</label>
+        <input type="text" name="title" id="title" value="{$bookInfo.title}" />
+      </div>
+      <div class="form-group">
+        <label for="seo_title">SEOtit</label>
+        <input type="text" name="seo_title" id="seo_title" value="{$bookInfo.seo_title}" />
+      </div>
+      <div class="form-group">
+        <label for="desc">desc</label>
+        <textarea type="text" name="desc" id="desc" value="{$bookInfo.desc}" /></textarea>
+      </div>
+
+      <div class="form-group text-center">
+        <button type="submit" class="btn" id="btn">修改</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+{include file="public/_foot" /}

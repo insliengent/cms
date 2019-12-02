@@ -1,0 +1,13 @@
+{include file="public/header" /}
+<section class="container mtb8">
+  <main class="main mr8">
+    <nav></nav>
+    <ul class="tit-lst">
+      {volist name="taxlst" id="vo"}
+      <li><a href="{:url('index/tax/art', ['id' => $vo.id])}">{$vo.title}</a></li>
+      {/volist}
+    </ul>
+    {$taxlst|raw}
+  </main>
+</section>
+{include file="public/footer" /}

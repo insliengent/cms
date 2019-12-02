@@ -1,0 +1,35 @@
+{include file="public/header" /}
+<div class="container mtb8">
+  <div class="tit-list">
+    <ul>
+        {volist name="guidelst" id="vo"}
+    <li>
+      <h2>{$vo.title}</h2>
+        {if !empty($vo['child'])}
+        <ul class="child">
+          {volist name="vo['child']" id="child"}
+          <li><a href="{:url('index/guide/art', ['id' => $child.id])}">{$child.title}</a></li>
+          {/volist}
+        </ul>
+        {/if}
+    </li>
+  {/volist}
+    </ul>
+  </div>
+</div>
+<script>
+$(function (){
+  $(this).find('.tit-list ul li').has('.child li').prepend('<i class="icon i-plus">');
+  $(this).find('.tit-list ul li').click(function(){
+     if($(this).find('i').hasClass('i-minus')) {
+       $(this).find('i').removeClass('i-minus').addClass('i-plus');
+       $(this).find('.child').slideUp(300);
+      }else{
+        $(this).find('i').removeClass('i-plus').addClass('i-minus');
+        $(this).find('.child').slideDown(300);
+      }
+
+  })
+})
+</script>
+{include file="public/footer" /}

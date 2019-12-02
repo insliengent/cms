@@ -1,0 +1,45 @@
+{include file="public/header" /}
+<section class="container mtb15">
+  <div class="row">
+    <main class="main">
+      <div class="bgfff">
+        {volist name="newslst" id="vo"}
+    <article class="art">
+      <div class="left">
+        <a href="{:url('index/news/art', ['id' => $vo.id])}" class="img" style="background-image: url({$vo.img});"></a>
+        <a class="cate" href="{:url('index/news/lst', ['id' => $vo.Newscate.id])}">{$vo.newscate.title}</a>
+      </div>
+      <div class="right">
+        <h2><a href="{:url('index/news/art', ['id' => $vo.id])}">{$vo.title}</a></h2>
+        <div class="mate">
+          <span><i class="icon i-clocko"></i> {$vo.create_time|date='Y-m-d'}</span>
+          <span><i class="icon i-eye"></i>({$vo.views})</span>
+          <span><i class="icon i-heart-o"></i>({$vo.love})</span>
+        </div>
+        <p>{$vo.desc}</p>
+      </div>
+    </article>
+    {/volist}
+    {$newslst|raw}
+      </div>
+  </main>
+
+<aside class="sidebar">
+  <div class="widget">
+    <div class="widget-tit"> <h3>新闻分类</h3></div>
+      <nav class="widget-nav">
+        <ul class="clearfix">
+        {volist name="newsCate" id="vo"}
+        <li>
+          <a href="{:url('index/news/lst', ['id' => $vo.id])}">{$vo.title}</a>
+        </li>
+        {/volist}
+        </ul>
+      </nav>
+  </div>
+  {include file="/public/widget_nav" /}
+  {include file="/public/widget_timeline" /}
+</aside>
+  </div>
+</section>
+{include file="public/footer" /}

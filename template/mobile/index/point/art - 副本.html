@@ -1,0 +1,67 @@
+{include file="public/header" /}
+<div class="container">
+  <div class="post-head pd15">
+    <h1>{$info.title}</h1>
+  </div>
+  <div class="post-mate pd15">
+    <span>更新时间：{$info.update_time|date="Y.m.d"}</span>
+  </div>
+  <div class="post-body pd15">
+    {$info.content|raw}
+  </div>
+
+  <div class="post-love">
+        {if $logonStatus == '0'}
+        <i class="icon i-staro"></i> <span class="t">收藏</span>
+        {else /}
+        <i class="icon i-star"></i> <span class="t">已收藏</span>
+        {/if}
+  </div>
+  <div class="post-nextprv">
+    {if($next)!=null}
+    <a  href="{:url('index/point/art', ['id' => $next.id])}" title="{$next.title}">上一篇</a>
+    {/if}
+    {if($prv)!=null}
+    <a  href="{:url('index/point/art', ['id' => $prv.id])}" title="{$prv.title}">下一篇</a>
+    {/if}
+  </div>
+
+  <div class="post-cate pd15">
+    <h3>{$ParentCateName}</h3>
+    <ul>
+    {volist name="sameCatePoint" id="vo"}
+    <li><a href="{:url('index/point/art', ['id' => $vo.id])}">{$vo.title}</a></li>
+    {/volist}
+    </ul>
+  </div>
+  <div class="post-related">
+
+  </div>
+
+</div>
+<script>
+$(function (){
+ $('.post-love').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $.ajax({
+      url:"{:url('index/love/click')}",
+      type:'post',
+      data:{artid:{$info.id},modename:'point',uid:'{$Request.cookie.uid}'},
+      datatype:'json',
+      success:function (data) {
+        if (data.code == -1) {
+            $('.post-love span').html(data.msg);
+          }else if(data.code == 0){
+            $('.post-love i').toggleClass('i-staro').toggleClass('i-star');
+            $('.post-love span').html(data.msg);
+          }else{
+            $('.post-love i').toggleClass('i-staro').toggleClass('i-star');
+            $('.post-love span').html(data.msg);
+          }
+       }
+    });//endajax
+  })//end-post-love
+})
+</script>
+{include file="public/footer" /}

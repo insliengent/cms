@@ -1,0 +1,52 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">用户管理</div>
+  <div class="page-body">
+    <div class="widget">
+      <header class="head clearfix">
+        <a href="{:url('admin/news/add')}" class="btn fl">添加新闻</a>
+        <form class="serachform" id="serach" action="{:url('admin/news/search')}" method="post">
+          <input type="text" placeholder="请输入标题" id="s" name="s">
+          <button type="submit" id="serach-submit">搜索</button>
+      </form>
+      </header>
+       <div class="body">
+         <table class="table ">
+          <thead>
+             <tr>
+               <th>ID</th>
+               <th>用户名</th>
+               <th>学历</th>
+               <th>专业</th>
+               <th>手机</th>
+               <th>关注的科目</th>
+               <th>错题</th>
+               <th>注册时间</th>
+               <th>上次登录时间</th>
+             </tr>
+          </thead>
+           <tbody>
+          {volist name="userlst" id="vo"}
+          <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.username}</td>
+            <td>{$vo.education}</td>
+            <td>{$vo.major}</td>
+            <td>{$vo.phone}</td>
+            <td>{$vo.follow_book}</td>
+            <td>{$vo.username}</td>
+            <td>{$vo.create_time|date="Y-m-d"}</td>
+            <td>{$vo.lastlogin_time|date="Y-m-d"}</td>
+          </tr>
+           {/volist}
+           </tbody>
+         </table>
+         {$userlst|raw}
+       </div>
+    </div>
+    </div>
+  </div>
+</main>
+
+{include file="public/_foot" /}

@@ -1,0 +1,22 @@
+{include file="public/header" /}
+<div class="container mtb8">
+  <main class="main">
+    <nav class="cate">
+      <ul class="clearfix">
+      {volist name="books" id="vo"}
+      <li>
+        <a href="{:url('index/exam/lst', ['id' => $vo.id])}">{$vo.title}</a>
+      </li>
+      {/volist}
+      </ul>
+    </nav>
+    <div class="list-exam">
+      <ul>
+      {volist name="lst" id="vo"}
+      <li><a href="{:url('index/exam/art', ['id' => $vo.id])}">{$vo.seo_title}</a></li>
+      {/volist}
+      </ul>
+    </div>
+  </main>
+</div>
+{include file="public/footer" /}

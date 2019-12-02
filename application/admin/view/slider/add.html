@@ -1,0 +1,43 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">添加</div>
+  <div class="page-body">
+    <div class="widget">
+      <form class="edit-box" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="title">名称</label>
+          <input type="text" name="title" id="title"  />
+        </div>
+        <div class="form-group">
+          <label for="link">链接</label>
+          <input type="text" name="link" id="link"  />
+        </div>
+        <div class="form-group clearfix">
+          <label for="img">图片</label>
+          <div class="form-block">
+            <input type="text" name="uploadurl" id="uploadurl">
+            <a href="javascript:;" id="upload-btn">选择文件
+              <input class="change" id="file" type="file"/>
+            </a>
+            <div class="clearfix"></div>
+            <div class="fileview">
+              <img src="" alt="" id="imgview">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="desc">描述</label>
+          <textarea type="text" name="desc" id="desc" value="" /></textarea>
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary" id="btn">添加</button>
+        </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</main>
+
+{include file="public/_foot" /}

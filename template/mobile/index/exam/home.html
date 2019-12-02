@@ -1,0 +1,23 @@
+{include file="public/header" /}
+<div class="container mtb8">
+  <main class="main">
+  <div class="book-home">
+    <ul>
+    {volist name="bookArr" id="vo"}
+    <li>
+      <a href="{:url('index/exam/lst', ['id' => $vo.id])}" class="clearfix">
+        <div class="l">
+          <img src="{$vo.img}" alt="">
+        </div>
+        <div class="r">
+          <h2>{$vo.title}</h2>
+          <p>共{$vo.exam_count}道题</p>
+        </div>
+      </a>
+    </li>
+    {/volist}
+    </ul>
+  </div>
+  </main>
+</div>
+{include file="public/footer" /}

@@ -1,0 +1,58 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">
+    <ul>
+      <li><a href="{:url('admin/system/index')}">系统设置</a></li>
+      <li><a href="{:url('admin/system/webset')}">网站SEO</a></li>
+    </ul>
+  </div>
+  <div class="page-body">
+  <div class="widget">
+     <form class="form-box">
+        <div class="form-group">
+          <label for="web_name">网站名称</label>
+          <input type="text" name="web_name" id="web_name" value="{$sys.web_name}" />
+        </div>
+        <div class="form-group">
+          <label for="web_title">首页标题</label>
+          <input type="text" name="web_title" id="web_title" value="{$sys.web_title}" />
+        </div>
+        <div class="form-group">
+          <label for="web_kws">关键词</label>
+          <input type="text" name="web_kws" id="web_kws" value="{$sys.web_kws}" />
+        </div>
+        <div class="form-group">
+          <label for="web_desc">网站描述</label>
+          <textarea type="text" rows="5" name="web_desc" id="web_desc"/>{$sys.web_desc}</textarea>
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary" id="btn">更新</button>
+        </div>
+     </form>
+  </div>
+  </div>
+</main>
+<script>
+$(function () {
+  $('#btn').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $.ajax({
+      url:"{:url('admin/system/set')}",
+      type:'post',
+      data:$('form').serialize(),
+      dataType:'json',
+      success : function (data) {
+         if (data.code == 0) {
+            $('#btn').html(data.msg);
+          }else {
+            $('#btn').html(data.msg);
+          }
+      },
+    });
+  });
+  return false;
+});
+</script>
+{include file="public/_foot" /}

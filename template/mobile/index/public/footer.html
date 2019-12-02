@@ -1,0 +1,38 @@
+<?php
+$currController = Request::controller();
+if($currController == "News" || $currController == "Point"){
+?>
+
+<?php }else{ ?>
+ <div class="foot-nav" style="<?php echo $sty?>">
+  <ul>
+   <li><a href="{:url('index/index/index')}"><i class="icon i-home"></i>首页</a></li>
+   <li><a href="{:url('index/exam/home')}"><i class="icon i-cube-outline"></i>题库</a></li>
+   <li><a href="{:url('index/point/home')}"><i class="icon i-diamond"></i>知识库</a></li>
+   <li><a href="{:url('index/user/home')}"><i class="icon i-user"></i>个人中心</a></li>
+  </ul>
+ </div>
+
+<?php } ?>
+<div id="layer" class="layer">
+  <div class="login-box">
+      <form id="login-form">
+        <h2>登录后享受更多功能</h2>
+        <div class="form-group">
+          <input type="text" name="phone" id="phone" placeholder="手机号">
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" id="password" placeholder="密码">
+        </div>
+        <div class="form-group clearfix">
+          <a class="little fr" href="{:url('index/index/forget')}">忘记密码?</a>
+        </div>
+        <div class="form-group">
+          <input type="text" name="redirect_to" hidden="hidden" value="<?php echo get_current_url() ?>">
+          <button type="submit" class="btn" id="login">登录</button>
+        </div>
+      </form>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">添加书</div>
+  <div class="page-body">
+    <div class="widget">
+      <form class="form-box" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{$Info.id}">
+        <div class="form-group">
+          <label for="title">名称</label>
+          <input type="text" name="title" id="title" value="{$Info.title}" />
+        </div>
+        <div class="form-group">
+          <label for="seo_title">seo_title</label>
+          <input type="text" name="seo_title" id="seo_title" value="{$Info.seo_title}" />
+        </div>
+        <div class="form-group clearfix">
+        <label for="pid">父级页面</label>
+          <div class="w80">
+            <link rel="stylesheet" href="/static/admin/style/select2.min.css">
+            <script src="/static/admin/js/select2.min.js"></script>
+            <div class="select-box">
+              <select class="booklst js-example-responsive" name="pid" id="pid" style="width: 100%">
+                <option></option>
+                {volist name="newsCateTree" id="vo"}
+                <option value="{$vo.id}">{if condition="$vo['level'] neq 0"}&nbsp;&nbsp;|{/if}<?php echo str_repeat('-',$vo['level'] * 2) ?>{$vo.title}</option>
+                {/volist}
+              </select>
+            </div>
+            <script>
+          $(".booklst").select2().select2("val", '{$Info.pid}');
+        </script>
+          </div>
+        </div>
+        <div class="form-group clearfix">
+          <label for="img">图片</label>
+          <div class="form-block">
+            <input type="text" name="uploadurl" id="uploadurl" value="{$Info.img}" >
+            <a href="javascript:;" id="upload-btn">选择文件
+              <input class="change" id="file" type="file" value="{$Info.img}" />
+            </a>
+            <div class="clearfix"></div>
+            <div class="fileview">
+              <img src="{$Info.img}" alt="" id="imgview">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="desc">描述</label>
+          <textarea type="text" name="desc" id="desc" value="{$Info.desc}" /></textarea>
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary" id="add">修改</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+{include file="public/_foot" /}

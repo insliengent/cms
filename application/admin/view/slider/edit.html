@@ -1,0 +1,67 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">编辑</div>
+  <div class="page-body">
+    <div class="widget">
+      <form class="form-box" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{$Info.id}">
+        <div class="form-group">
+          <label for="title">名称</label>
+          <input type="text" name="title" id="title" value="{$Info.title}" />
+        </div>
+        <div class="form-group">
+          <label for="link">链接</label>
+          <input type="text" name="link" id="link"  />
+        </div>
+        <div class="form-group clearfix">
+          <label for="img">图片</label>
+          <div class="form-block">
+            <input type="text" name="uploadurl" id="uploadurl" value="{$Info.img}">
+            <a href="javascript:;" id="upload-btn">选择文件
+              <input class="change" id="file" type="file"/>
+            </a>
+            <div class="clearfix"></div>
+            <div class="fileview">
+              <img src="{$Info.img}" alt="" id="imgview">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="desc">描述</label>
+          <textarea type="text" name="desc" id="desc" value="{$Info.desc}" /></textarea>
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary" id="edit">修改</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+<script>
+$(function () {
+
+
+  $('#edit').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $.ajax({
+      url:"{:url('admin/slider/edit')}",
+      type:'post',
+      data:$('form').serialize(),
+      dataType:'json',
+      success : function (data) {
+         if (data.code == 1) {
+            $('#edit').html(data.msg);
+            location.href = data.url;
+          }else {
+
+            $('#edit').html(data.msg);
+          }
+      },
+    });
+  });
+  return false;
+});
+</script>
+{include file="public/_foot" /}

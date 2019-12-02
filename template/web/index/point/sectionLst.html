@@ -1,0 +1,46 @@
+{include file="public/header" /}
+<div class="container mtb15">
+ <div class="row">
+  <aside class="sidebar">
+      <div class="widget widget-book">
+      <h3 class="widget-tit">{$bookName}</h3>
+        <ul>
+        {volist name="booktree" id="vo"}
+    <li>
+      <h4><a href="{:url('index/point/lst', ['id' => $vo.id])}" alt="{$vo.title} 练习题">{$vo.title}</a></h4>
+      {if !empty($vo['child'])}
+        <ul class="child">
+        {volist name="vo['child']" id="child"}
+          <li><a href="{:url('index/point/lst', ['id' => $child.id])}" alt="{$child.title} 练习题">{$child.title}</a></li>
+        {/volist}
+        </ul>
+      {/if}
+    </li>
+    {/volist}
+    </ul>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="bgfff post-wrap">
+        <div class="subject-box">
+          <ul class="clearfix">
+            {volist name="sectionLst" id="vo"}
+            <li>
+              <a href="{:url('index/point/art', ['id' => $vo.id])}" alt="{$vo.title} 练习题">{$vo.title}</a>
+            </li>
+            {/volist}
+          </ul>
+        </div>
+      </div>
+    </main>
+ </div>
+</div>
+<script>
+$(function (){
+  $(this).find('.widget-book ul li').has('.child').children('h4').click(function(){
+    $(this).parent().toggleClass('on');
+  })
+
+})
+</script>
+{include file="public/footer" /}

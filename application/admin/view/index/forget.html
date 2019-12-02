@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>找回密码</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/admin/style/login.css">
+    <script src="https://cdn.bootcss.com/jquery/2.2.2/jquery.min.js"></script>
+</head>
+<body>
+<header class="header">
+  <div class="container">
+  <img src="/static/admin/img/logo.png" alt="" class="logo">
+  </div>
+</header>
+<div class="login-bg">
+<div class="container">
+  <div class="login-box">
+    <form>
+      <h2>找回密码</h2>
+      <div class="form-group">
+        <input type="text" name="email" placeholder="输入注册邮箱" />
+      </div>
+      <div class="form-group">
+        <div class="error"></div>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" name="code" placeholder="验证码" />
+      </div>
+      <div class="form-group">
+          <button type="submit" class="btn" id="getCode">获取验证码</button>
+      </div>
+      <div class="form-group hidden">
+        <input type="submit" class="btn btn-primary btn-block" id="reset" value="重置密码">
+      </div>
+      <div class="form-group">
+        <a href="{:url('admin/index/login')}">返回登录</a>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+<footer class="foot">
+  Copyright © 2006-2019 高顿税务师, All Rights Reserved.
+</footer>
+<script>
+  $(function () {
+       $('#getCode').click(function () {
+           var email = $('[name=email]').val();
+           $.ajax({
+               url:"{:url('admin/index/forget')}",
+               type:'post',
+               data:{email:email},
+               dataType:'json',
+               success:function (data) {
+                 //console.log(data);
+                   if (data.code == 1) {
+                     location.href = data.url;
+                   }else {
+                       $('.error').html(data.msg);
+                   }
+               }
+           });
+           return false;
+       });
+
+       $('#reset').click(function () {
+           $.ajax({
+               url:"{:url('admin/index/forgetre')}",
+               type:'post',
+               data:$('form').serialize(),
+               dataType:'json',
+               success:function (data) {
+                   if (data.code == 1) {
+                       layer.msg(data.msg, {
+                           icon:6,
+                           time:2000
+                       }, function () {
+                           location.href = data.url;
+                       });
+                   }else {
+                       layer.open({
+                           title:'密码重置失败',
+                           content:data.msg,
+                           icon:5,
+                           anim:6
+                       });
+                   }
+               }
+           });
+           return false;
+       });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">添加书</div>
+  <div class="page-body">
+    <div class="widget">
+      <form class="form-box" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="title">名称</label>
+          <input type="text" name="title" id="title"  />
+        </div>
+        <div class="form-group">
+          <label for="seo_title">seo_title</label>
+          <input type="text" name="seo_title" id="seo_title" />
+        </div>
+        <div class="form-group">
+          <label for="desc">描述</label>
+          <textarea type="text" name="desc" id="desc" value="" /></textarea>
+        </div>
+        <div class="form-group">
+          <label for="sort">排序</label>
+          <input type="text" name="sort" id="sort" value="" />
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary" id="add">添加</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+{include file="public/_foot" /}

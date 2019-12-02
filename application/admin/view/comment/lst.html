@@ -1,0 +1,89 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">评论列表</div>
+  <div class="page-body">
+    <div class="widget">
+       <div class="body">
+         <table class="table">
+          <thead>
+             <tr>
+               <th>评论</th>
+               <th class="text-center">作者</th>
+                <th class="text-center">回复至</th>
+                <th class="text-center">时间</th>
+                <th class="text-center">操作</th>
+             </tr>
+          </thead>
+           <tbody>
+          {volist name="comlst" id="vo"}
+          <tr>
+            <td>
+            <textarea type="text" name="answer[]">{$vo.content|raw}</textarea>
+            </td>
+            <td>作者</td>
+            <td><a href="{:url('index/'.$vo.tablename.'/art', ['id' => $vo.artid])}">{$vo.arttit}</a></td>
+            <td class="text-center">{$vo.create_time|date="Y-m-d H:i:s"}</td>
+            <td class="text-center">
+              {if $vo.approved == 1}
+              <a class="approved" dataid="{$vo.id}" approved="{$vo.approved}" href="javascript:;">待审</a>
+                {else /}
+                <i class="approved" dataid="{$vo.id}" approved="{$vo.approved}">已批</i>
+                {/if}
+              <button class="del delete-btn" value="{$vo.id}">删除</button>
+            </td>
+          </tr>
+           {/volist}
+           </tbody>
+         </table>
+
+       </div>
+    </div>
+    </div>
+  </div>
+</main>
+<script>
+$(function () {
+  //置顶
+  $('.approved').click(function () {
+    var approved = $(this).attr('approved');
+    var id = $(this).attr('dataid');
+    $.ajax({
+      url:"{:url('admin/comment/approved')}",
+      type:'post',
+      data:{id:id, approved:approved},
+      dataType:'json',
+      success:function (data) {
+        if (data.code == 1) {
+          location.href = location.href;
+        }else{
+
+        }
+      }
+    });
+  });
+
+//删除
+ $('.delete-btn').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $(this).parent().parent().remove();
+    var id = $(this).val();
+    $.ajax({
+       url:"{:url('admin/news/del')}",
+       type:'post',
+       data:{id:id},
+       dataType:'json',
+       success:function (data) {
+           if (data.code == 1) {
+             //$('#message').html(data.msg);
+           }else {
+             //$('#message').html(data.msg);
+           }
+       }
+   });
+  });
+
+})
+</script>
+{include file="public/_foot" /}

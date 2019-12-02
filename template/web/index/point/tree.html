@@ -1,0 +1,55 @@
+{include file="public/header" /}
+<div class="container mtb15">
+ <div class="row">
+  <aside class="sidebar">
+      {include file="/public/widget_nav" /}
+    </aside>
+     <main class="main">
+      <div class="bgfff">
+      <nav class="cate">
+        <ul class="clearfix">
+          {volist name="books" id="vo"}
+        <li>
+          <a href="{:url('index/point/tree', ['id' => $vo.id])}">{$vo.title}</a>
+        </li>
+        {/volist}
+        </ul>
+      </nav>
+     <div class="post-wrap">
+    <div class="tit-list">
+      <ul>
+      {volist name="booktree" id="vo"}
+    <li>
+      <h4><a href="{:url('index/point/lst', ['id' => $vo.id])}" alt="{$vo.title} 练习题">{$vo.title}</a></h4>
+      {if !empty($vo['child'])}
+        <ul class="child">
+        {volist name="vo['child']" id="child"}
+          <li><a href="{:url('index/point/sectionlst', ['id' => $child.id])}" alt="{$child.title} 练习题">{$child.title}</a></li>
+        {/volist}
+        </ul>
+      {/if}
+    </li>
+    {/volist}
+      </ul>
+    </div>
+    </div>
+    </div>
+  </main>
+ </div>
+</div>
+<script>
+$(function (){
+  $(this).find('.tit-list ul li').has('.child li').prepend('<i class="icon i-plus">');
+  $(this).find('.tit-list ul li').click(function(){
+     if($(this).find('i').hasClass('i-minus')) {
+       $(this).find('i').removeClass('i-minus').addClass('i-plus');
+       $(this).find('.child').slideUp(300);
+      }else{
+        $(this).find('i').removeClass('i-plus').addClass('i-minus');
+        $(this).find('.child').slideDown(300);
+      }
+
+  })
+})
+</script>
+{include file="public/footer" /}

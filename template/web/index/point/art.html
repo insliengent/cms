@@ -1,0 +1,85 @@
+{include file="public/header" /}
+{$Think.session.uid}
+<section class="container mtb15">
+<div class="row">
+<aside class="sidebar">
+  <div class="widget widget-book">
+    <h3 class="widget-tit">{$bookName}</h3>
+    <ul>
+    {volist name="booktree" id="vo"}
+
+    <li>
+      <h4><a href="{:url('index/point/lst', ['id' => $vo.id])}" alt="{$vo.title} 练习题">{$vo.title}</a></h4>
+      {if !empty($vo['child'])}
+        <ul class="child">
+        {volist name="vo['child']" id="child"}
+          <li class="{eq name='$chapterId' value='$vo.id'}on{/eq}"><a href="{:url('index/point/lst', ['id' => $child.id])}" alt="{$child.title} 练习题">{$child.title}</a></li>
+        {/volist}
+        </ul>
+      {/if}
+    </li>
+    {/volist}
+    </ul>
+  </div>
+  </aside>
+  <main class="main">
+    <div class="bgfff post-wrap">
+      <header class="post-head">
+        <h1>{$info.title}</h1>
+      </header>
+      <div class="post-body">
+        {$info.content|raw}
+      </div>
+      <footer class="post-foot">
+        <div class="post-love">
+          {if $logonStatus == '0'}
+          <i class="icon i-staro"></i> <span class="t">收藏</span>
+          {else /}
+          <i class="icon i-star"></i> <span class="t">已收藏</span>
+          {/if}
+        </div>
+        <div class="post-nextprv">
+
+          {if($next)!=null}
+            上一篇：<a  href="{:url('index/point/art', ['id' => $next.id])}">{$next.title}</a><br>
+          {/if}
+          {if($prv)!=null}
+            下一篇：<a  href="{:url('index/point/art', ['id' => $prv.id])}">{$prv.title}</a>
+          {/if}
+        </div>
+      </footer>
+    </div>
+  </main>
+</div>
+</section>
+
+<script>
+$(function (){
+  $(this).find('.widget-book ul li').has('.child').children('h4').click(function(){
+    $(this).parent().toggleClass('on');
+  })
+  $('.post-love').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $.ajax({
+      url:"{:url('index/love/click')}",
+      type:'post',
+      data:{artid:{$info.id},modename:'point',uid:'{$Request.cookie.uid}',},
+      datatype:'json',
+      success:function (data) {
+        if (data.code == -1) {
+            $('.post-love span').html(data.msg);
+          }else if(data.code == 0){
+            $('.post-love i').toggleClass('i-staro').toggleClass('i-star');
+            $('.post-love span').html(data.msg);
+          }else{
+            $('.post-love i').toggleClass('i-staro').toggleClass('i-star');
+            $('.post-love span').html(data.msg);
+          }
+       }
+    });//endajax
+  })//end-post-love
+
+});
+</script>
+{include file="public/footer" /}

@@ -1,0 +1,34 @@
+{include file="public/header" /}
+<section class="container mtb8">
+  <main class="main mr8">
+    <nav class="cate">
+    <ul class="clearfix">
+    {volist name="books" id="vo"}
+    <li>
+      <a href="{:url('index/video/lst', ['id' => $vo.id])}">{$vo.title}</a>
+    </li>
+    {/volist}
+    </ul>
+  </nav>
+    {volist name="Videolst" id="vo"}
+    <article class="art">
+      <div class="left">
+        <a href="{:url('index/Video/art', ['id' => $vo.id])}" class="img" style="background-image: url({$vo.img});"></a>
+        <a class="cate" href="{:url('index/Video/lst', ['id' => $vo.Videocate.id])}">{$vo.Videocate.title}</a>
+      </div>
+      <div class="right">
+        <h2><a href="{:url('index/Video/art', ['id' => $vo.id])}">{$vo.title}</a></h2>
+        <div class="mate">
+          <span><i class="icon i-clocko"></i> {$vo.create_time|date='Y-m-d'}</span>
+          <span><i class="icon i-eye"></i>({$vo.views})</span>
+          <span><i class="icon i-heart-o"></i>({$vo.love})</span>
+        </div>
+        <p>{$vo.desc}</p>
+      </div>
+    </article>
+    {/volist}
+    {$Videolst|raw}
+  </main>
+{include file="public/sidebar_home" /}
+</section>
+{include file="public/footer" /}

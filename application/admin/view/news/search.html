@@ -1,0 +1,93 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">课程分类管理</div>
+  <div class="page-body">
+    <div class="widget">
+      {include file="news/header" /}
+       <div class="body">
+         <table class="table">
+          <thead>
+             <tr>
+               <th>ID</th>
+               <th>标题</th>
+               <th class="text-center">分类</th>
+                <th class="text-center">置顶</th>
+                <th class="text-center">时间</th>
+               <th class="text-center">操作</th>
+             </tr>
+          </thead>
+           <tbody>
+          {volist name="searchs" id="vo"}
+          <tr>
+            <td>{$vo.id}</td>
+            <td><a href="{:url('admin/news/edit', ['id' => $vo.id])}">{$vo.title}</a></td>
+            <td class="text-center"><a href="{:url('admin/news/lst', ['id' => $vo.newscate_id])}">{$vo.Newscate.title}</a></td>
+            <td class="text-center">
+              {if $vo.atop == 1}
+               <i class="icon atop i-checkactive" dataid="{$vo.id}" atop="{$vo.atop}"></i>
+                {else /}
+                <i class="icon atop i-check" dataid="{$vo.id}" atop="{$vo.atop}"></i>
+                {/if}
+            </td>
+            <td class="text-center">{$vo.create_time|date="m-d H:i:s"}</td>
+            <td class="text-center">
+              <a href="{:url('index/news/art', ['id' => $vo.id])}" target="_Blank">预览</a>
+              <a href="{:url('admin/news/edit', ['id' => $vo.id])}">编辑</a>
+              <button class="del delete-btn" value="{$vo.id}">删除</button>
+            </td>
+          </tr>
+           {/volist}
+           </tbody>
+         </table>
+         {$searchs|raw}
+       </div>
+    </div>
+    </div>
+  </div>
+</main>
+<script>
+$(function () {
+  //置顶
+  $('.atop').click(function () {
+    var atop = $(this).attr('atop');
+    var id = $(this).attr('dataid');
+    $.ajax({
+      url:"{:url('admin/news/atop')}",
+      type:'post',
+      data:{id:id, atop:atop},
+      dataType:'json',
+      success:function (data) {
+        if (data.code == 1) {
+          location.href = location.href;
+        }else{
+
+        }
+      }
+    });
+  });
+
+//删除
+ $('.delete-btn').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $(this).parent().parent().remove();
+    var id = $(this).val();
+    $.ajax({
+       url:"{:url('admin/news/del')}",
+       type:'post',
+       data:{id:id},
+       dataType:'json',
+       success:function (data) {
+           if (data.code == 1) {
+             //$('#message').html(data.msg);
+           }else {
+             //$('#message').html(data.msg);
+           }
+       }
+   });
+  });
+
+})
+</script>
+{include file="public/_foot" /}

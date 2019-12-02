@@ -1,0 +1,116 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">课程分类管理</div>
+  <div class="page-body">
+    <div class="widget">
+      <header class="head clearfix">
+        <a href="{:url('admin/news/add')}" class="btn fl mr15">添加新闻</a>
+        <a href="{:url('admin/news/trash')}" class="btn fl mr15">回收站</a>
+        <span class="btn fl mr15 btn-red" id="delete">彻底删除</span>
+        <span class="btn fl mr15 btn-blue" id="recovery">恢复文章</span>
+        <form class="serachform" id="serach" action="{:url('admin/news/search')}" method="post">
+          <input type="text" placeholder="请输入标题" id="s" name="s">
+          <button type="submit" id="serach-submit">搜索</button>
+      </form>
+      </header>
+       <div class="body">
+         <table class="table">
+          <thead>
+             <tr>
+              <th class="text-center">
+                <i class="icon i-check" class="select"  id="select-all"></i>
+              </th>
+               <!-- <th>ID</th> -->
+               <th>标题</th>
+               <th class="text-center">分类</th>
+               <th class="text-center">时间</th>
+               <th class="text-center">操作</th>
+             </tr>
+          </thead>
+           <tbody>
+          {volist name="newslst" id="vo"}
+          <tr>
+            <td class="text-center" width="40px">
+              <i class="icon i-check select" dataid="{$vo.id}"></i>
+            </td>
+            <!-- <td>{$vo.id}</td> -->
+            <td><a href="{:url('admin/news/edit', ['id' => $vo.id])}">{$vo.title}</a></td>
+            <td class="text-center"><a href="{:url('admin/news/lst', ['id' => $vo.newscate_id])}">{$vo.Newscate.title}</a></td>
+            <td class="text-center">{$vo.create_time|date="Y-m-d"}</td>
+            <td class="text-center">
+              <a href="{:url('admin/news/edit', ['id' => $vo.id])}">彻底删除</a>
+              <a href="{:url('admin/news/edit', ['id' => $vo.id])}">恢复</a>
+            </td>
+          </tr>
+           {/volist}
+           </tbody>
+         </table>
+         {$newslst|raw}
+       </div>
+    </div>
+    </div>
+  </div>
+</main>
+<script>
+$(function () {
+  $('#select-all').click(function() {
+    $(this).toggleClass('i-check').toggleClass('i-checkactive');
+    $.each($('.select'), function(){
+      $(this).toggleClass('i-check').toggleClass('i-checkactive');
+    });
+  })//end-select-all
+  $('.select').click(function() {
+    $(this).toggleClass('i-check').toggleClass('i-checkactive');
+  })//end-select-all
+
+
+//删除
+ $('#delete').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    var ids = new Array();
+    $.each($('.i-checkactive'), function(){
+      ids.push($(this).attr("dataid"));
+    });
+    $.ajax({
+       url:"{:url('admin/index/del')}",
+       type:'post',
+       data:{id:ids,model:'News',},
+       dataType:'json',
+       success:function (data) {
+           if (data.code == 1) {
+             //$('#message').html(data.msg);
+           }else {
+             //$('#message').html(data.msg);
+           }
+       }
+   });
+  });
+
+ $('#recovery').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+      var ids = new Array();
+    $.each($('.i-checkactive'), function(){
+      ids.push($(this).attr("dataid"));
+    });
+
+    $.ajax({
+       url:"{:url('admin/index/recovery')}",
+       type:'post',
+       data:{id:ids,model:'News',},
+       dataType:'json',
+       success:function (data) {
+           if (data.code == 1) {
+             //$('#message').html(data.msg);
+           }else {
+             //$('#message').html(data.msg);
+           }
+       }
+   });
+  });
+
+})
+</script>
+{include file="public/_foot" /}

@@ -1,0 +1,29 @@
+{include file="public/header" /}
+<div class="container">
+  <h1 class="page-tit"></h1>
+  <div class="book-tree">
+    <ul>
+   {volist name="booktree" id="vo"}
+    <li>
+      <h2>{$vo.title} <i class="icon i-plus"></i></h2>
+      {if !empty($vo['child'])}
+        <ul class="child">
+        {volist name="vo['child']" id="child"}
+          <li><a href="{:url('index/point/lst', ['id' => $child.id])}" alt="{$child.title} 练习题">{$child.title}</a></li>
+        {/volist}
+        </ul>
+      {/if}
+    </li>
+    {/volist}
+    </ul>
+  </div>
+</div>
+<script>
+$(function (){
+  $('.book-tree h2').click(function() {
+    $(this).find('i').toggleClass('i-minus').toggleClass('i-plus');
+    $(this).siblings('.child').slideToggle(300);
+  })
+})
+</script>
+{include file="public/footer" /}

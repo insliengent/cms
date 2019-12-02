@@ -1,0 +1,57 @@
+{include file="public/header" /}
+<div class="container">
+  <div>
+    {volist name="examlst" id="vo"}
+    <div class="art-point">
+      <i class="icon i-star" artid='{$vo.id}'></i>
+      <a href="{:url('index/exam/art', ['id' => $vo.id])}">{$vo.title}</a>
+    </div>
+    {/volist}
+    <input type="hidden" id="more_div">
+    <input type="hidden" id="offect" value="12" />
+    <div class="no-more" id="show_more">没有更多了</div>
+  </div>
+</div>
+<script>
+  $(window).scroll(
+        function() {
+        var scrollTop = $(this).scrollTop();
+        var scrollHeight = $(document).height();
+        var windowHeight = $(this).height();
+        if (scrollTop + windowHeight == scrollHeight) {
+            $("#show_more").html('数据加载中');
+            $offect = $("#offect").val();
+            $.post('{:url("index/user/exam")}',{offect:$offect}, function(data){
+                if(data != -1){
+                    var array = eval("("+data+")");
+                    var str = "";
+                    for(var p in array){
+                        str += '<div class="art-point"><i class="icon i-star" artid='+array[p].id+'></i><a href="{:url("index/exam/art", ["id" =>'+array[p].id+'])}">'+array[p].title+'</a></div>';
+                    }
+                    $("#offect").val($offect*1+8);
+                    $("#more_div").before(str);
+                }else{
+                    $("#show_more").html('没有更多数据了');
+                }
+            }, 'json');
+        }
+    });
+$(function () {
+  $('.art-point i').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $(this).parent().fadeOut();
+    var id = $(this).attr('artid');
+    $.ajax({
+      url:"{:url('index/love/click')}",
+      type:'post',
+      data:{id:id,modename:'exam'},
+      dataType:'json',
+      success : function (data) {
+
+      }
+    });//endajax
+  });//endclick
+})
+</script>
+{include file="public/footer" /}

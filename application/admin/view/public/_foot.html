@@ -1,0 +1,63 @@
+</div>
+<footer>
+<script>
+<?php
+$currController = Request::controller();
+$currAction     = Request::action();
+$currModule     = Request::module();
+?>
+$(function () {
+  $('.sidebar-nav li').click(function() {
+    if($(this).hasClass('on')) {
+       $(this).removeClass('on');
+       $(this).sli('on');
+      }else{
+        $(this).addClass('on');
+      }
+  });
+
+  //loginout
+ $('#loginout').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $(this).parent().parent().remove();
+    var id = $(this).val();
+    $.ajax({
+       url:"{:url('admin/index/loginout')}",
+       type:'post',
+       data:{id:id},
+       dataType:'json',
+       success:function (data) {
+           if (data.code == 1) {
+             location.href = data.url;
+           }
+       }
+   });
+  });//end loginout
+
+  $('#btn').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $.ajax({
+      url:"{:url($currModule.'/'.$currController.'/'.$currAction)}",
+      type:'post',
+      data:$('form').serialize(),
+      dataType:'json',
+      success : function (data) {
+         if (data.code == 0) {
+            $('#btn').html(data.msg);
+            setTimeout(function() {
+               $('#btn').html('添加');
+             },1000);
+          }else {
+            $('#btn').html(data.msg);
+          }
+      },
+    });
+  });
+
+});
+</script>
+</footer>
+</body>
+</html>

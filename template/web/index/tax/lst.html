@@ -1,0 +1,18 @@
+{include file="public/header" /}
+<section class="container mtb15">
+  <div class="row">
+    <main class="main ">
+    <div class="bgfff">
+      <nav></nav>
+    <ul class="tit-lst">
+      {volist name="taxlst" id="vo"}
+      <li><a href="{:url('index/tax/art', ['id' => $vo.id])}">{$vo.title}</a></li>
+      {/volist}
+    </ul>
+    {$taxlst|raw}
+    </div>
+  </main>
+{include file="public/sidebar" /}
+  </div>
+</section>
+{include file="public/footer" /}

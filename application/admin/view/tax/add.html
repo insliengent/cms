@@ -1,0 +1,39 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">添加文章</div>
+  <div class="page-body">
+    <div class="widget">
+      <form class="edit-box" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="title">名称</label>
+          <input type="text" name="title" id="title"  />
+        </div>
+        <div class="form-group">
+          <label for="tel">电话</label>
+          <input type="text" name="tel" id="tel" />
+        </div>
+        <div class="form-group">
+          <label for="addr">地址</label>
+          <input type="text" name="addr" id="addr" />
+        </div>
+        <div class="form-group">
+          <label for="desc">描述</label>
+          <textarea type="text" name="desc" id="desc" value="" /></textarea>
+        </div>
+        <div class="form-group">
+          <label for="website">官网</label>
+          <input type="text" name="website" id="website" />
+        </div>
+
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary" id="add">添加</button>
+        </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</main>
+
+{include file="public/_foot" /}

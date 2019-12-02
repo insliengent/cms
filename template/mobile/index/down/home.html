@@ -1,0 +1,17 @@
+{include file="public/header" /}
+<div class="container mtb8">
+  <br>
+  <main class="main">
+  <div class="widget-card">
+    <ul>
+    {volist name="downcate" id="vo"}
+    <li>
+      <a href="{:url('index/down/lst', ['id' => $vo.id])}<?php echo $urlAddto;?>"><i class="icon {$vo.icon}"></i> {$vo.title} </a>
+    </li>
+    {/volist}
+    </ul>
+  </div>
+  </main>
+</div>
+<a href="https://d.gaodun.com/f/qC9OV6?x_field_1=app" class="art-down-btn">打包全部发送到邮箱</a>
+{include file="public/footer" /}

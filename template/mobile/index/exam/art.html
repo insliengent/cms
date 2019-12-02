@@ -1,0 +1,78 @@
+{include file="public/header" /}
+<div class="container pd15 examh">
+  <form>
+  <div class="post-head">
+    <h1>{$examInfo.title} 练习题</h1>
+    <p>{$examInfo.question}</p>
+   </div>
+  <div class="post-body">
+    {volist name="artBody" id="v"}
+    <div class="post-option post-box">
+      <div class="l {$optState}" v="{$v.opt}" my="0">{$v.abc}</div>
+      <div class="r">{$v.answer}</div>
+       </div>
+    {/volist}
+    <button type="submit" class="btn" id="submit">提交</button>
+  </div>
+<div class="post-Analysis post-box">
+        正确答案：{volist name="artBody" id="vo"}{eq name="vo['opt']" value="1"}{$vo.abc}{/eq}<if>{/volist}<br>
+        答案解析：<br>
+      {$examInfo.analysis}</div>
+  </form>
+  <footer class="page-footer">
+    <div class="nextprv">
+     {if($next)!=null}
+    <a  href="{:url('index/exam/art', ['id' => $next.id])}" title="{$next.title}">上一题</a>
+    {/if}
+    {if($prv)!=null}
+    <a  href="{:url('index/exam/art', ['id' => $prv.id])}" title="{$prv.title}">下一题</a>
+    {/if}
+    </div>
+  </footer>
+</div>
+
+<script>
+ $(function () {
+  $('.post-option').click(function(ev){
+    $(this).children('.l').toggleClass("on");
+    $my_v =$(this).children('.l').attr('my');
+    $my_v = $my_v==0 ? 1 : 0;
+    $(this).children('.l').attr('my',$my_v);
+
+  });
+
+  $('#submit').click(function(ev){
+    $('.post-Analysis').toggleClass("on");
+  });
+
+   $('#submit').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    var myarr = new Array();
+    $.each($('.post-option'), function(){
+      myarr.push($(this).find(".l").attr("my"));
+    });
+    myarr = myarr.join(",")
+    var varr = new Array();
+    $.each($('.post-option'), function(){
+      varr.push($(this).find(".l").attr("v"));
+    });
+    varr = varr.join(",");
+    var count=1;
+    if (myarr != varr ) {
+      $.ajax({
+       url:"{:url('index/exam/count')}",
+       type:'post',
+       data:{count:count,id:{$examInfo.id}},
+       dataType:'json',
+      });
+    };
+
+   });
+});
+</script>
+<footer class="foot">
+
+</footer>
+</body>
+</html>

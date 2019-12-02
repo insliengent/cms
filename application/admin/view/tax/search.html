@@ -1,0 +1,72 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">搜索结果</div>
+  <div class="page-body">
+    <div class="widget">
+      <header class="head clearfix">
+        <a href="{:url('admin/tax/add')}" class="btn">添加</a>
+<form class="serachform" id="serach" action="{:url('admin/tax/add')}" method="post">
+    <input type="text" placeholder="请输入关键词" id="s" name="s">
+    <button type="submit" id="serach-submit">搜索</button>
+</form>
+      </header>
+      <table class="chapter table clearfix">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>标题</th>
+          <th>地区</th>
+          <th>属性</th>
+        </tr>
+      </thead>
+      <tbody>
+      {volist name="searchs" id="vo"}
+      <tr>
+        <td>
+        {$vo.id}
+        </td>
+        <td>
+        <a href="{:url('admin/tax/edit', ['id' => $vo.id])}">{$vo.title}</a>
+        </td>
+        <td></td>
+        <td>
+        <a href="{:url('index/tax/art', ['id' => $vo.id])}" target="_Blank">预览</a>
+        <a href="{:url('admin/tax/edit', ['id' => $vo.id])}">编辑</a>
+        <button class="del delete-btn" value="{$vo.id}">删除</button>
+        </td>
+      </tr>
+      {/volist}
+      </tbody>
+      </table>
+
+    </div>
+    </div>
+  </div>
+</main>
+<script>
+$(function () {
+//删除
+ $('.delete-btn').click(function (ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    $(this).parent().parent().remove();
+    var id = $(this).val();
+    $.ajax({
+       url:"{:url('admin/tax/del')}",
+       type:'post',
+       data:{id:id},
+       dataType:'json',
+       success:function (data) {
+           if (data.code == 1) {
+             //$('#message').html(data.msg);
+           }else {
+             //$('#message').html(data.msg);
+           }
+       }
+   });
+  });
+
+})
+</script>
+{include file="public/_foot" /}

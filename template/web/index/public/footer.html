@@ -1,0 +1,16 @@
+<footer class="footer">
+<div class="container text-center">
+  ©2019 高顿税务师
+</div>
+</footer>
+<script>
+ $(function () {
+  $("#keyword").on("input propertychange",function () {
+     var s = $('#keyword').val();
+     console.log(keyword);
+     $('#search').attr('action',"{:url('index/index/search')}/"+s+"");
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{include file="public/header" /}
+<section class="container pd15">
+    {if}
+    {volist name="newslst" id="vo"}
+      <a href="{:url('index/news/art', ['id' => $vo.id])}" class="art">
+      <div class="left">
+        <div  class="img" style="background-image: url({$vo.img});"></div>
+      </div>
+      <div class="right">
+        <h2>{$vo.title}</h2>
+        <div class="mate">
+          <span>{$vo.create_time|date='Y-m-d'}</span>
+          <span>赞：{$vo.views}</span>
+          <span>评论：{$vo.love}</span>
+        </div>
+      </div>
+      </a>
+    {/volist}
+    {$newslst|raw}
+</section>
+{include file="public/footer" /}

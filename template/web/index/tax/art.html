@@ -1,0 +1,28 @@
+{include file="public/header" /}
+<section class="container mtb8">
+  <div class="row">
+  <main class="main">
+    <article class="post-wrap bgfff">
+      <header class="post-head">
+        <h1>{$Info.title}</h1>
+        <div class="post-mate">
+          <span><i class="icon i-clocko"></i> {$Info.create_time|date='Y-m-d'}</span>
+          <span><i class="icon i-eye"></i>{$Info.views}</span>
+          <span><i class="icon i-heart-o"></i>{$Info.love}</span>
+        </div>
+      </header>
+      <div class="post-body">
+        {$Info.content|raw}
+      </div>
+      <footer class="post-foot">
+        <div class="tag"></div>
+        <div class="related"></div>
+      </footer>
+    </article>
+
+  </main>
+{include file="public/sidebar" /}
+  </div>
+
+</section>
+{include file="public/footer" /}

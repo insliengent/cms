@@ -1,0 +1,111 @@
+{include file="public/header" /}
+<link rel="stylesheet" href="static/moblie/css/swiper.min.css">
+<script src="static/moblie/js/swiper.min.js"></script>
+<div class="container">
+<section class="swiper-container banner">
+<ul class="swiper-wrapper">
+  {volist name="sliderlst" id="v"}
+  <li class="swiper-slide"><a href="{$v.link}"><img src="{$v.img}" alt="{$v.title}"></a></li>
+  {/volist}
+</ul>
+<div class="swiper-pagination"></div>
+</section>
+<nav class="icon-nav">
+  <ul class="clearfix">
+      <li><a href="{:url('index/point/home')}"><i class="icon i-target"></i>考点</a></li>
+      <li><a href="{:url('index/exam/home')}"><i class="icon i-university"></i>题库</a></li>
+      <li><a href="{:url('index/video/lst')}"><i class="icon i-cube-outline"></i>视频</a></li>
+      <li><a href="{:url('index/guide/lst')}"><i class="icon i-compass"></i>报考</a></li>
+      <li><a href="{:url('index/news/lst', ['id' => '118'])}"><i class="icon i-notice"></i>通知</a></li>
+      <li><a href="{:url('index/news/lst')}"><i class="icon i-news"></i>资讯</a></li>
+      <li><a href="{:url('index/news/lst', ['id' => '121'])}"><i class="icon i-mortarboard"></i>经验</a></li>
+      <li><a href="{:url('index/down/home')}"><i class="icon i-ziliao"></i>资料</a></li>
+  </ul>
+</nav>
+<section class="tip">
+  <img src="/static/moblie/img/hot_top.png" alt="" class="tip-img">
+  <ul>
+    <li>距离税务师报名结束还有<span id="day_show"></span>天</li>
+  </ul>
+</section>
+<section class="book ptb15">
+  <ul class="clearfix">
+    {volist name="books" id="vo"}
+    <li>
+      <a href="{:url('index/index/book', ['id' => $vo.id])}">
+        <img src="{$vo.img}" alt="">
+      </a>
+    </li>
+    {/volist}
+  </ul>
+</section>
+<section class="news pd15">
+  {volist name="newslst" id="vo"}
+  <a href="{:url('index/news/art', ['id' => $vo.id])}" class="art-news">
+      <div class="left">
+        <div  class="img" style="background-image: url({$vo.img});"></div>
+      </div>
+      <div class="right">
+        <h2>{$vo.title}</h2>
+        <div class="mate">
+          <span>{$vo.create_time|date='Y-m-d'}</span>
+          <span>赞：{$vo.like}</span>
+          <span>评论：{$vo.comment_count}</span>
+        </div>
+      </div>
+  </a>
+  {/volist}
+  <input type="hidden" id="more_div">
+  <input type="hidden" id="offect" value="8" />
+  <div class="no-more" id="show_more">没有更多了</div>
+</section>
+
+</div>
+<script>
+  $(window).scroll(
+        function() {
+        var scrollTop = $(this).scrollTop();
+        var scrollHeight = $(document).height();
+        var windowHeight = $(this).height();
+        if (scrollTop + windowHeight == scrollHeight) {
+            $("#show_more").html('数据加载中');
+            $offect = $("#offect").val();
+            $.post('{:url("index/index/index")}',{offect:$offect}, function(data){
+                if(data != -1){
+                    var item = eval("("+data+")");
+                    var str = "";
+                    for(var p in item){
+                        str += '<a href="/news/'+item[p].id+'" class="art-news"><div class="left"><div class="img" style="background-image: url('+item[p].img+');"></div></div><div class="right"><h2>'+item[p].title+'</h2><div class="mate"><span>'+item[p].create_time+'</span><span>赞：'+item[p].like+'</span><span>评论：'+item[p].comment_count+'</span></div></div></a>'
+
+                    };
+                    $("#offect").val($offect*1+8);
+                    $("#more_div").before(str);
+                }else{
+                    $("#show_more").html('没有更多数据了');
+                }
+            }, 'json');
+        }
+    });
+    var swiper = new Swiper('.banner', {
+            autoplay:{
+                delay:3000,
+                disableOnInteraction: false,
+            },
+        loop : true,
+        slidesPerView: 'auto',
+        centeredSlides: true,
+    });
+  var deadline =new Date(2020,1,21,0,0,0);//月份要减一
+  var currentTime=new Date().getTime();
+  var timeInterval=deadline.getTime()-currentTime;
+  var remainTime=parseInt(timeInterval/1000);
+  var day=parseInt(remainTime/(3600*24));
+  function addzeros(time){
+    if(time<10){
+      time='0'+time;
+    }
+    return time;
+  }
+  $('#day_show').html(addzeros(day));
+</script>
+{include file="public/footer" /}

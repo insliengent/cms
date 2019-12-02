@@ -1,0 +1,43 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">批量导入</div>
+  <div class="page-body">
+    <form class="form-warp">
+      <div class="form-group clearfix">
+          <label for="execl">图片</label>
+          <div class="form-block">
+            <input type="text" name="uploadurl" id="uploadurl">
+            <a href="javascript:;" id="upload-btn"><span class="msg">选择文件</span>
+              <input class="change" id="file" name="file" type="file"/>
+            </a>
+            <div class="clearfix"></div>
+            <a href="" class="down-example">导入模板下载</a>
+          </div>
+        </div>
+    </form>
+  </div>
+</main>
+<script>
+$(function () {
+$("#upload-btn").on("change","input[type='file']",function(ev){
+    ev.stopPropagation();
+    ev.preventDefault();
+    var filePath=$(this).val();
+    var formdata = new FormData();
+    formdata.append("file",document.getElementById('file').files[0]);
+      $.ajax({
+        url:"{:url('admin/exam/import')}",
+        type:'post',
+        data:formdata,
+        processData:false,
+        contentType:false,
+        dataType:'json',
+        success: function(data){
+          $('.msg').html(data.msg);
+        }
+      })//edn ajax
+  })
+})
+</script>
+{include file="public/_foot" /}

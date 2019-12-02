@@ -1,0 +1,80 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">添加文章</div>
+  <div class="page-body">
+    <div class="widget">
+      <form class="edit-box" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="title">标题</label>
+          <input type="text" name="title" id="title"  />
+        </div>
+        <div class="form-group">
+          <label for="seo_title">seo_title</label>
+          <input type="text" name="seo_title" id="seo_title" />
+        </div>
+        <div class="form-group clearfix">
+        <label for="pid">分类</label>
+        <link rel="stylesheet" href="/static/admin/style/select2.min.css">
+        <script src="/static/admin/js/select2.min.js"></script>
+        <div class="w80">
+        <div class="select-box">
+          <select class="booklst js-example-responsive" name="downcate" id="downcate" style="width: 100%">
+            <option></option>
+            {volist name="downlst" id="vo"}
+            <option value="{$vo.id}">{$vo.title}</option>
+            {/volist}
+          </select>
+        </div>
+        <script>
+          $('.booklst').select2({
+            placeholder: "选择分类",
+            width: 'resolve'
+          });
+        </script>
+      </div>
+        </div>
+        <div class="form-group">
+          <label for="seo_title">资料类型</label>
+          <input type="text" name="type" id="type" value="" hidden="hidden">
+          <ul class="w80 check-box">
+            <li data-value="pdf"><i class="icon i-radio"></i>PDF</li>
+            <li data-value="doc"><i class="icon i-radio"></i>doc</li>
+            <li data-value="xlsx"><i class="icon i-radio"></i>表格</li>
+            <li data-value="zip"><i class="icon i-radio"></i>压缩包</li>
+            <li data-value="img"><i class="icon i-radio"></i>图片</li>
+          </ul>
+        </div>
+        <div class="form-group clearfix">
+          <label for="upload">资料地址</label>
+          <div class="form-block">
+            <input type="text" name="uploadurl" id="uploadurl" value="">
+            <a href="javascript:;" id="upload-btn">选择文件
+              <input class="change" id="file" type="file"/>
+            </a>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="desc">描述</label>
+          <textarea type="text" name="desc" id="desc" value="" /></textarea>
+        </div>
+        <div class="form-group text-center">
+          <button type="submit" class="btn btn-primary" id="btn">添加</button>
+        </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</main>
+<script type="text/javascript">
+$(function () {
+  $('.check-box li').click(function() {
+    $(this).children('i').removeClass('i-radio').addClass('i-radio-on');
+    $(this).siblings().children('i').removeClass('i-radio-on').addClass('i-radio');
+    v = $(this).data("value");
+    $("#type").attr("value",v);
+  })
+});
+</script>
+{include file="public/_foot" /}

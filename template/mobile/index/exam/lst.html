@@ -1,0 +1,14 @@
+{include file="public/header" /}
+<div class="container">
+  <h1 class="page-tit">{$bookName}</h1>
+  <div class="tit-list">
+    <ul style="font-size: 9px;">
+    {volist name="chapters" id="vo"}
+    <li>
+      <a href="{:url('index/exam/art', ['id' => $vo.art_id])}">{$vo.title}</a>
+    </li>
+    {/volist}
+    </ul>
+  </div>
+</div>
+{include file="public/footer" /}

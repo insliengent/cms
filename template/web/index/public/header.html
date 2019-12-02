@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{$tit}_{$webName}</title>
+  <meta name="description" content="{$desc}" >
+  <link rel="stylesheet" href="/static/web/css/style.css">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1167221_mmimot0gvef.css">
+  <script src="/static/web/js/jquery.min.js"></script>
+</head>
+<body>
+<header class="header">
+<div class="container plr10">
+   <a href="{:url('index/index/index')}" class="site-logo"><img class="logo" src="/static/admin/img/logow.png" alt=""></a>
+   <nav class="nav nav-left">
+     <ul>
+       <li class="{eq name='$Request.controller' value='Index'}{eq name='$Request.action' value='index'}active{/eq}{/eq}"><a href="{:url('index/index/index')}">首页</a></li>
+       <li class="{eq name='$Request.controller' value='News'}active{/eq}"><a href="{:url('index/news/lst')}">新闻</a></li>
+       <li class="{eq name='$Request.controller' value='Index'}{eq name='$Request.action' value='subject'}active{/eq}{/eq}"><a href="{:url('index/index/subject', ['id' => '8'])}">科目</a></li>
+       <li class="{eq name='$Request.controller' value='Point'}active{/eq}"><a href="{:url('index/point/home')}">考点</a></li>
+       <li class="{eq name='$Request.controller' value='Exam'}active{/eq}"><a href="{:url('index/exam/tree',['id' => '8'])}">题库</a></li>
+       <li class="{eq name='$Request.controller' value='Video'}active{/eq}"><a href="{:url('index/video/lst')}">视频</a></li>
+       <!-- <li class="{eq name='$Request.controller' value='Tax'}active{/eq}"><a href="{:url('index/tax/lst')}">地税</a></li> -->
+       <!-- <li class="{eq name='$Request.controller' value='Guide'}active{/eq}"><a href="{:url('index/guide/art',['id' => '80'])}">报考指南</a></li> -->
+       <!-- <li class="{eq name='$Request.controller' value='Down'}active{/eq}"><a href="{:url('index/down/lst',['id' => '80'])}">资料下载</a></li> -->
+     </ul>
+   </nav>
+
+  <ul class="fr nav-right">
+    <li><a href="{:url('index/index/login')}">登录</a></li>
+    <li><a href="{:url('index/index/register')}">注册</a></li>
+  </ul>
+  <form action="" method="post" id="search" class="searchform">
+     <input type="text" id="keyword" name="s" value="{$Request.param.s}">
+     <button type="submit" class="icon searchbtn">&#xe7f4;</button>
+   </form>
+</div>
+</header>

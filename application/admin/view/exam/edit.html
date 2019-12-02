@@ -1,0 +1,72 @@
+{include file="public/_head" /}
+{include file="public/_left" /}
+<main class="main">
+  <div class="breadcrumbs">添加试题</div>
+  <div class="page-body">
+    税务师
+    <form class="form-warp">
+      <input type="hidden" name="id" value="{$examInfo.book_id}">
+      <div class="form-control">
+        <label>选择章节（必须）</label>
+        <link rel="stylesheet" href="/static/admin/style/select2.min.css">
+        <script src="/static/admin/js/select2.min.js"></script>
+        <div class="booklist">
+          <select class="booklst" name="book_id" id="book_id">
+            {volist name="booktree" id="vo"}
+            <option value="{$vo.id}">{if condition="$vo['level'] neq 0"}&nbsp;&nbsp;|{/if}<?php echo str_repeat('-',$vo['level'] * 2) ?>{$vo.title}</option>
+            {/volist}
+        </select>
+        </div>
+        <script>
+          $(".booklst").select2().select2("val", '{$examInfo.book_id}');
+        </script>
+      </div>
+      <div class="form-control">
+        <label for="title">问题</label>
+        <textarea type="text" name="title" id="title">{$examInfo.title}</textarea>
+      </div>
+      <div class="form-control">
+        <label>选项</label>
+          <div class="clearfix option-box">
+              {volist name="examArray" id="vo"}
+              <div class="input-group">
+                {eq name="vo['opt']" value="1"}
+                  <input class="checkbox" type="checkbox" checked="checked" name="check[]">
+                {/eq}
+                {eq name="vo['opt']" value="0"}
+                  <input class="checkbox" type="checkbox"  name="check[]">
+                {/eq}
+                <textarea type="text" name="answer[]">{$vo.answer}</textarea>
+              </div>
+
+              {/volist}
+          </div>
+        </div>
+        <div class="form-control">
+          <span class="btn" id="add-options">添加选项</span>
+          <span class="btn" id="del-options">删除选项</span>
+        </div>
+        <div class="form-control">
+          <label>答案解析</label>
+          <textarea type="text" name="analysis" id="analysis">{$examInfo.analysis}</textarea>
+        </div>
+        <div class="form-control">
+          <button type="submit" class="btn btn-primary" id="btn">编辑</button>
+        </div>
+    </form>
+  </div>
+</main>
+<script>
+$(function(){
+var input_group = '<div class="input-group"><input class="checkbox" type="checkbox" value="1" name="check[]"><textarea type="text" name="answer[]"></textarea></div>';
+
+$("#add-options").on('click', function() {
+    $(".option-box").append(input_group);
+   });
+$("#del-options").on('click', function() {
+    $(".option-box").children().eq(-1).remove();
+   });
+
+});
+</script>
+{include file="public/_foot" /}
