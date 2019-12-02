@@ -15,6 +15,7 @@ class Comment extends Base
           $data = [
             'artid'       => input('post.id'),
             'uid'         => base64_decode(Cookie::get('uid')),
+            'parent'      => input('post.parent'),
             'tablename'   => input('post.controller'),
             'content'     => input('post.comment')
           ];

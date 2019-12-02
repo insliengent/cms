@@ -1,8 +1,10 @@
 <?php
 namespace app\index\controller;
+use think\facade\Env;
 use think\Db;
 use think\facade\Request;
 use think\facade\Cookie;
+
 
 class User extends Base
 {
@@ -105,5 +107,26 @@ class User extends Base
       }
       return view();
     }
+
+  public function upload()
+  {
+
+    if (request()->isAjax()) {
+      $uid =base64_decode(Cookie::get('uid'));
+      $file = request() -> file('file');
+      $info = $file->rule('uniqid')->move(Env::get('root_path'). 'public'.DIRECTORY_SEPARATOR.'static'.DIRECTORY_SEPARATOR.'uploads'.DIRECTORY_SEPARATOR.'images');
+      if($info){
+        $result =array();
+        $jsonInfo = $file->getInfo();
+        $getSaveName=str_replace("\\","/",$info->getSaveName());
+        $result['src'] = '/static/uploads/images/'.$getSaveName;
+        $result['size'] = $jsonInfo['size'];
+        $result['code'] = Db::name('user')->where('id', $uid)->setField('avatar', $result['src']);
+        return $result;
+      }else{
+        echo $file->getError();
+      }
+    }
+  }
 
 }

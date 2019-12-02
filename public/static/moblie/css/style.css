@@ -163,7 +163,7 @@ input{width: 100%;outline: none;border: 0;line-height: 45px;padding: 0 15px;back
 .post-related{padding: 15px;}
 .post-related h2{font-size: .3rem;margin-bottom: .2rem;}
 .post-related li{line-height: 1.4;font-size: .28rem;}
-.post-comment{background: #fff;padding: .4rem;}
+.post-comment{background: #fff;padding: .4rem;width: 100%;}
 /* .post-comment.on{position: absolute;bottom: 0;width: 100%;padding: 0 .3rem;}
 .post-comment.on .comment{height: 100px;width: 100%;border-radius: 0;} */
 .comment{border-radius: 3px;width: 100%;font-size: .24rem;height: .8rem;line-height: .8rem;outline: none;padding: 0 .3rem;border: 1px solid #ddd;overflow: hidden;}
@@ -251,8 +251,10 @@ input{width: 100%;outline: none;border: 0;line-height: 45px;padding: 0 15px;back
 .user-set .right{width: calc(100% - 70px);float: left;padding:10px;}
 .user-set .right h2{font-size: 18px;line-height: 2;}
 .user-set .icon{position: absolute;right: 0;top: calc(50% - 4px);}
-.avatar-box{text-align: center;}
+.avatar-box{}
+.avatar-box #upload-btn{text-align: center;position: relative;display: block;}
 .avatar-box img{max-width: 80px;height: auto;border-radius: 30%;}
+.avatar-box .change{display: block;max-width: 80px;height: auto;position: absolute;left: 50%;margin-left: -40px;top: 0;height: 80px;opacity: 0}
 
 .foot-nav{position: fixed;bottom: 0;left: 0;width: 100%;}
 .foot-nav ul{display: flex;background-color: #fff;max-width: 750px;width: 100%;margin-left: auto;margin-right: auto;border-top: 1px solid #efefef;}

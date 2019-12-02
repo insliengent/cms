@@ -39,7 +39,7 @@ $currController = Request::controller();
     <div class="comments-area">
       <ol class="comment-list" style="font-size: 9px">
         {volist name="comments" id="vo"}
-        <li class="comment-li clearfix" id="#comment-{$vo.id}">
+        <li class="comment-li clearfix" data-comment-id="{$vo.id}">
           <div class="author-avatar"><img src="{$vo.avatar}" alt=""></div>
           <div class="comment-body">
             <div class="author-name">{$vo.nickname}</div>
@@ -53,8 +53,9 @@ $currController = Request::controller();
       </ol>
     </div>
     <form class="post-comment" id="comment-form">
-      <textarea type="text" name="comment" class="comment"></textarea>
+      <textarea type="text" name="comment" id="comment" class="comment"></textarea>
       <input type="text" hidden="hidden" name="id" value="{$info.id}">
+      <input type="text" hidden="hidden" name="parent" id="parent" value="0">
       <input type="text" hidden="hidden" name="controller" value="<?php echo Request::controller()?>">
       <div class="btn" id="comment-submit">发布</div>
     </form>

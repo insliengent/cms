@@ -58,6 +58,7 @@ Route::rule('user/set', 'index/user/set', 'get|post');
 Route::rule('user/exam', 'index/user/exam', 'get|post');
 Route::rule('user/point', 'index/user/point', 'get|post');
 Route::rule('user/commemt', 'index/user/comment', 'get|post');
+Route::rule('user/upload', 'index/user/upload', 'get|post');
 
 //Route::miss('index/index/miss');
 
