@@ -12,6 +12,7 @@ Route::rule('/', 'index/index/index');
 Route::rule('comment/add', 'index/comment/add', 'post|get');
 Route::rule('comment/like', 'index/comment/like', 'post|get');
 
+
 Route::rule('news-[:id]', 'index/news/lst', 'get');
 Route::rule('news/:id', 'index/news/art', 'get');
 Route::rule('news/like', 'index/news/like', 'post|get');
@@ -52,6 +53,7 @@ Route::rule('loginout', 'index/index/loginout', 'get|post');
 Route::rule('login', 'index/index/login', 'get|post');
 Route::rule('register', 'index/index/register', 'get|post');
 Route::rule('search/[:s]', 'index/index/search', 'get|post');
+Route::rule('check', 'index/index/check', 'post|get');
 
 Route::rule('user', 'index/user/home', 'get|post');
 Route::rule('user/set', 'index/user/set', 'get|post');

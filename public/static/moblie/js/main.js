@@ -150,5 +150,19 @@ $(document).ready(function(){
     $("#comment").attr('placeholder','回复@'+name+'');
   })
 
+  $('#check-form label').click(function() {
+    $(this).toggleClass('.on');
+  })
+  $('#submit-check').click(function() {
+    $.ajax({
+          url:"/check",
+          type:'post',
+          data:form,
+          dataType:'json',
+          success: function(data){
+            $('#submit-check').html(data.msg);
+          },
+    })
+  })
 
 });//end$

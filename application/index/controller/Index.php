@@ -227,6 +227,9 @@ class Index extends Base
       return view('index/search');
     }
 
-
+  public function check()
+  {
+    return view();
+  }
 
 }
