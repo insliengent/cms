@@ -160,6 +160,8 @@ Route::group('admin', function () {
     Route::rule('user/lst-[:status]', 'admin/user/lst', 'get');
     Route::rule('user/edit-[:id]', 'admin/user/edit', 'get|post');
     Route::rule('user/del', 'admin/user/del', 'post');
+    Route::rule('user/check', 'admin/user/check', 'get');
+    Route::rule('user/excelout', 'admin/user/excelout', 'get|post');
 
     Route::rule('commemt/lst', 'admin/comment/lst', 'get');
     Route::rule('comment/art/:id', 'admin/comment/read', 'get');

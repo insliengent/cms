@@ -271,10 +271,10 @@ h2{font-size: .3rem;line-height: 1.8;}
 .layer{position: fixed;top: 0;left: 0;width: 100%;display: none;height: 100%;}
 .layer .login-box{margin-top: 35%}
 .layer .login-box form{box-shadow: 0 0 7px 4px #eee;background-color: #fff;padding: 10px;}
-.check{background-color: #f4f4f4}
+.check{}
 .check .form-group{margin-bottom: 0;}
-.check label{font-size: .30rem;margin-right: 0.2rem;text-align: center;font-size: 0.14rem;height: 30px;line-height: 30px;background-color: #e4e3e3;color: #333;border-radius: 2px;display: inline-block;padding: 0 15px;margin-bottom: .2rem;}
-.check label.on{background: #d1aa6d!important;color: #ffffff!important;}
+.check label{font-size: .30rem;margin-right: 0.2rem;text-align: center;font-size: 0.14rem;height: 30px;line-height: 30px;background-color: #e4e3e3;color: #333;border-radius: 2px;display: inline-block;padding: 0 15px;margin-bottom: .4rem;}
+.check label.on{background: #4080c2!important;color: #ffffff!important;}
 .check label input{margin-right: 5px;display: none;border-radius: 2px;}
 .check .w5{width: 50%;float: left;}
 .check .w33{width: 33.333%;float: left;}

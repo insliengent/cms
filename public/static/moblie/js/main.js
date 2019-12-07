@@ -150,18 +150,21 @@ $(document).ready(function(){
     $("#comment").attr('placeholder','回复@'+name+'');
   })
 
-  $('#check-form label').click(function() {
-    $(this).toggleClass('.on');
+  $("#check-form label").change(function() {
+    $(this).toggleClass('on');
+    $(this).siblings('label').removeClass('on');
   })
-  $('#submit-check').click(function() {
+  $('#submit-check').click(function(ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
     $.ajax({
-          url:"/check",
-          type:'post',
-          data:form,
-          dataType:'json',
-          success: function(data){
-            $('#submit-check').html(data.msg);
-          },
+      url:"/check",
+      type:'post',
+      data:$('#check-form').serialize(),
+      dataType:'json',
+      success: function(data){
+        $('#submit-check').html(data.msg);
+      },
     })
   })
 

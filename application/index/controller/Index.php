@@ -6,8 +6,6 @@ use think\facade\Cookie;
 use think\Db;
 
 
-
-
 class Index extends Base
 {
   public function index()
@@ -229,6 +227,83 @@ class Index extends Base
 
   public function check()
   {
+    $uid = base64_decode(Cookie::get('uid'));
+    $edu   = input('post.education');
+    $year  = input('post.work_age');
+    $major = input('post.major');
+    if ($uid) {
+      $nologin = 1;
+      if (request()->isAjax()) {
+        $data = [
+          'education' => input('post.education'),
+          'work_age'  => input('post.work_age'),
+          'major'     => input('post.major')
+        ];
+        $result = Db::name('user')->where('id',$uid)->update($data);
+
+        if ($result == 'success') {
+          if ($edu == "研究生及以上" &&  $major == "经法管" && $year>=0) {
+            $e = 1;
+          }else if($edu == "研究生及以上" &&  $major == "非经法管" && $year>=1) {
+            $e = 1;
+          }else if($edu == "本科" &&  $major == "经法管" && $year>=0) {
+            $e = 1;
+          }else if($edu == "本科" &&  $major == "非经法管" && $year>=1){
+            $e = 1;
+          }else if($edu == "大专及以下" &&  $major == "经法管" && $year>=2){
+            $e = 1;
+          }else if($edu == "大专及以下" &&  $major == "非经法管" && $year==3){
+            $e = 1;
+          }else{
+            $e = 0;
+          };
+          if ($e == 1) {
+            return ['code'=>1,'msg'=>'符合税务师报名条件'];
+          } else {
+            return ['code'=>0,'msg'=>'不符合税务师报名条件'];
+          };
+        }else{
+          $this->error($result);
+        }
+      }
+    }else{
+      $nologin = 0;
+      if (request()->isAjax()) {
+        $data = [
+            'username'  => input('post.username'),
+            'phone'     => input('post.phone'),
+            'education' => input('post.education'),
+            'work_age'  => input('post.work_age'),
+            'major'     => input('post.major')
+          ];
+        $result = model('check')->add($data);
+        if ($result == 'success') {
+          if ($edu == "研究生及以上" &&  $major == "经法管" && $year>=0) {
+            $statuscode = 1;
+          }else if($edu == "研究生及以上" &&  $major == "非经法管" && $year>=1) {
+            $statuscode = 1;
+          }else if($edu == "本科" &&  $major == "经法管" && $year>=0) {
+            $statuscode = 1;
+          }else if($edu == "本科" &&  $major == "非经法管" && $year>=1){
+            $statuscode = 1;
+          }else if($edu == "大专及以下" &&  $major == "经法管" && $year>=2){
+            $statuscode = 1;
+          }else if($edu == "大专及以下" &&  $major == "非经法管" && $year==3){
+            $statuscode = 1;
+          }else{
+            $statuscode = 0;
+          };
+          if ($statuscode == 1) {
+            return ['code'=>1,'msg'=>'符合税务师报名条件'];
+          } else {
+            return ['code'=>0,'msg'=>'不符合税务师报名条件'];
+          };
+        }else{
+          $this->error($result);
+        }
+      }
+    }
+    $this->assign('nologin',$nologin);
     return view();
   }
 

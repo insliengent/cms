@@ -83,10 +83,10 @@ class News extends Base
         ];
         $result = Db::name('love')->where($data)->find();
         if (is_null($result)){
-          $result = Db::name('love')->insert($data);
+          Db::name('love')->insert($data);
           return ['code'=> 0,'msg'=>'已收藏'];
         }else {
-          $result = Db::name('love')->where($data)->delete();
+          Db::name('love')->where($data)->delete();
           return ['code'=> 1, 'msg'=>'收藏'];
         }
       }

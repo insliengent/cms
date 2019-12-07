@@ -25,6 +25,8 @@ a:hover,a:active,a:focus{text-decoration: none;color: #595959;}
 .delete-btn{color: red;background:none;border: none;cursor: pointer;}
 #message{height: 30px;line-height: 30px;margin-bottom: 20px;color: red;}
 .mr15{margin-right: 15px;}
+.w50{width: 50%;float: left;}
+.w50{width: 50%;float: left;}
 
 input[type="text"]{border: 1px solid #bbb;height: 30px;line-height: 30px;padding: 5px;}
 textarea{border: 1px solid #bbb;padding: 5px;}

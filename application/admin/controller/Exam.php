@@ -73,53 +73,56 @@ class Exam extends Base
           $this->error($result);
          }
      };
-      $examInfo = model('Exam')->find(input('id'));
-      $opt = $examInfo['opt'];
-      $answer = $examInfo['answer'];
-      $answerArr = explode("|||",$answer);
-      $count  = count($answerArr);
-      $abc = array_slice(array('A','B','C','D','E','F'),0,$count);
-      $opts = str_split($opt,1);
-
-      if(in_array("A",$opts)){
+      $examInfo = Db::name('Exam')->find(input('id'));
+      $opt = $examInfo['opt'];//选项内容
+      $optArr = explode("|||",$opt);
+      $answer = $examInfo['answer'];//选项答案ABCD
+      $answerArr = str_split($answer,1);
+      $optCount  = count($optArr);
+      $abcArr = array_slice(array('A','B','C','D','E','F'),0,$optCount);
+      $d = array();
+      if(in_array("A",$answerArr)){
         $d['1'] = '1';
         }else{
         $d['1'] = '0';
       }
-      if(in_array("B",$opts)){
+      if(in_array("B",$answerArr)){
         $d['2'] = '1';
         }else{
         $d['2'] = '0';
       }
-      if(in_array("C",$opts)){
+      if(in_array("C",$answerArr)){
         $d['3'] = '1';
         }else{
         $d['3'] = '0';
       }
-      if(in_array("D",$opts)){
+      if(in_array("D",$answerArr)){
         $d['4'] = '1';
         }else{
         $d['4'] = '0';
       }
-      if(in_array("E",$opts)){
+      if(in_array("E",$answerArr)){
         $d['5'] = '1';
         }else{
         $d['5'] = '0';
       }
-      if(in_array("F",$opts)){
+      if(in_array("F",$answerArr)){
         $d['6'] = '1';
         }else{
         $d['6'] = '0';
       }
-       $d = array_slice($d,0,$count);
-      foreach($d as $key=>$val){
-        $e[$key]['opt']=$d[$key];
-        $e[$key]['answer']=$answerArr[$key];
+
+      $d = array_slice($d,0,$optCount);
+      $e = array();
+      foreach($d as $k => $v){
+        $e[$k]['opt']=$d[$k];
+        $e[$k]['answer']=$optArr[$k];
        }
       $viewData = [
           'examInfo' => $examInfo,
           'examArray' => $e,
       ];
+
       $this->assign($viewData);
 
     return view();

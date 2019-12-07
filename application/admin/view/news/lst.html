@@ -4,7 +4,14 @@
   <div class="breadcrumbs">课程分类管理</div>
   <div class="page-body">
     <div class="widget">
-      {include file="news/header" /}
+      <header class="head clearfix">
+              <a href="{:url('admin/news/add')}" class="btn fl mr15">添加新闻</a>
+              <a href="{:url('admin/news/trash')}" class="btn fl mr15">回收站</a>
+              <form class="serachform" id="serach" action="{:url('admin/news/search')}" method="post">
+                <input type="text" placeholder="请输入标题" id="s" name="s">
+                <button type="submit" class="btn" id="serach-submit">搜索</button>
+            </form>
+      </header>
        <div class="body">
          <table class="table">
           <thead>
@@ -30,7 +37,7 @@
                 <i class="icon atop i-check" dataid="{$vo.id}" atop="{$vo.atop}"></i>
                 {/if}
             </td>
-            <td class="text-center">{$vo.create_time|date="m-d H:i:s"}</td>
+            <td class="text-center">{$vo.create_time|date="Y-m-d"}</td>
             <td class="text-center">
               <a href="{:url('index/news/art', ['id' => $vo.id])}" target="_Blank">预览</a>
               <a href="{:url('admin/news/edit', ['id' => $vo.id])}">编辑</a>
